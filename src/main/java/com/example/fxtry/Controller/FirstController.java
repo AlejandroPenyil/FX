@@ -1,4 +1,4 @@
-package com.example.fxtry;
+package com.example.fxtry.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,10 +20,10 @@ public class FirstController {
     @FXML
     private void goToLogin(ActionEvent event) {
         try {
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("login-view.fxml"));
             Parent secondSceneParent = loader.load();
             Scene secondScene = new Scene(secondSceneParent);
-
             // Acceso al controlador de la segunda escena, si es necesario
             LoginController secondController = loader.getController();
 
