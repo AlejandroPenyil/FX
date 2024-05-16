@@ -9,7 +9,7 @@
       <VBox layoutX="569.0" layoutY="276.0" spacing="10.0" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="150.0">
          <children>
             <Button fx:id="SingUpButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Sign up" textAlignment="CENTER" />
-            <Button fx:id="LoginButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToLogin" text="Log in" textAlignment="CENTER" />
+            <Button fx:id="LoginButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToLogin" text="Log in" textAlignment="CENTER"/>
          </children>
       </VBox>
    </children>

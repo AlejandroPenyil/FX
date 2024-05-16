@@ -13,7 +13,7 @@
          <children>
             <TextField />
             <PasswordField />
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" />
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" onAction="#goToMain" />
          </children>
       </VBox>
    </children>

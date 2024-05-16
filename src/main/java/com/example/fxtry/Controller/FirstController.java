@@ -21,7 +21,7 @@ public class FirstController {
     private void goToLogin(ActionEvent event) {
         try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("login-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fxtry/login-view.fxml"));
             Parent secondSceneParent = loader.load();
             Scene secondScene = new Scene(secondSceneParent);
             // Acceso al controlador de la segunda escena, si es necesario
