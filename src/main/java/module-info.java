@@ -18,4 +18,5 @@ module com.example.fxtry {
 
     exports com.example.fxtry;
     exports com.example.fxtry.Controller;
+    exports com.example.fxtry.Controller.Create;
 }
