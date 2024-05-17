@@ -13,6 +13,7 @@ public class FXApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(FXApplication.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Generic");
+        scene.getStylesheets().add(getClass().getResource("/com/example/fxtry/style.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
     }

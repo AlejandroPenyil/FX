@@ -22,6 +22,8 @@ import static com.example.fxtry.Controller.LoginController.admin;
 public class ClientController {
     public static User updatable = new User();
 
+    //TODO crear variable para realizar el filtrado
+
     @FXML
     private TableView<User> tvwClient;
 
@@ -55,6 +57,7 @@ public class ClientController {
             // Acceso al stage actual
             Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
+            secondScene.getStylesheets().add(getClass().getResource("/com/example/fxtry/style.css").toExternalForm());
             // Mostrar la segunda escena en el stage actual
             currentStage.setScene(secondScene);
 
@@ -77,7 +80,7 @@ public class ClientController {
             ContextMenu contextMenu = menuItem.getParentPopup();
             Scene scene = contextMenu.getOwnerNode().getScene();
             Stage currentStage = (Stage) scene.getWindow();
-
+            secondScene.getStylesheets().add(getClass().getResource("/com/example/fxtry/style.css").toExternalForm());
             // Mostrar la segunda escena en el stage actual
             currentStage.setScene(secondScene);
 
@@ -105,6 +108,7 @@ public class ClientController {
             Scene scene = contextMenu.getOwnerNode().getScene();
             Stage currentStage = (Stage) scene.getWindow();
 
+            secondScene.getStylesheets().add(getClass().getResource("/com/example/fxtry/style.css").toExternalForm());
             // Mostrar la segunda escena en el stage actual
             currentStage.setScene(secondScene);
 
@@ -112,6 +116,12 @@ public class ClientController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void delete(ActionEvent event){
+        User selectedUser = tvwClient.getSelectionModel().getSelectedItem();
+
+        //TODO metodo para softdelete, no va haber hard delete
     }
 }
 

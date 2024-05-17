@@ -39,6 +39,7 @@ public class LoginController {
             admin.setNombre(lblName.getText().trim());
             admin.setContraseña(lblPasword.getText());
 
+            secondScene.getStylesheets().add(getClass().getResource("/com/example/fxtry/style.css").toExternalForm());
             // Mostrar la segunda escena en el stage actual
             currentStage.setScene(secondScene);
 
