@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -16,7 +17,10 @@ public class LoginController {
     public static User admin = new User();
 
     @FXML
-    private TextField lblName, lblPassword;
+    private TextField lblName;
+
+    @FXML
+    private PasswordField lblPasword;
 
     @FXML
     private void goToMain(ActionEvent event) {
@@ -33,6 +37,7 @@ public class LoginController {
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
             admin.setNombre(lblName.getText().trim());
+            admin.setContraseña(lblPasword.getText());
 
             // Mostrar la segunda escena en el stage actual
             currentStage.setScene(secondScene);

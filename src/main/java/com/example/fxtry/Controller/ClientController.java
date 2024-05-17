@@ -22,11 +22,12 @@ public class ClientController {
     private TableView<User> tvwClient;
 
     @FXML
-    private TableColumn<User, String> tcName;
+    private TableColumn<User, String> tcName, tcPassword;
 
     @FXML
     private void initialize(){
         tcName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
+        tcPassword.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContraseña()));
         tvwClient.getItems().add(admin);
 
     }

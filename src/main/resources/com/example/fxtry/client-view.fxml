@@ -30,9 +30,10 @@
          <center>
             <TableView fx:id="tvwClient" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn fx:id="tcName" prefWidth="75.0" text="Nombre" />
-                <TableColumn prefWidth="75.0" text="Apellido" />
-                  <TableColumn prefWidth="75.0" text="Correo" />
+                <TableColumn fx:id="tcName" prefWidth="125.0" text="Nombre" />
+                <TableColumn prefWidth="125.0" text="Apellido" />
+                  <TableColumn prefWidth="125.0" text="Correo" />
+                  <TableColumn fx:id="tcPassword" prefWidth="125.0" text="Contraseña" />
               </columns>
             </TableView>
          </center>
