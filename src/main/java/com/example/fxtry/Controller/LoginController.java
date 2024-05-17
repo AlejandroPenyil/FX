@@ -9,18 +9,31 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import org.controlsfx.control.cell.ImageGridCell;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class LoginController {
     public static User admin = new User();
+
+    @FXML
+    private ImageView imgPortrait;
 
     @FXML
     private TextField lblName;
 
     @FXML
     private PasswordField lblPasword;
+
+    @FXML
+    private void initialize(){
+        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/placeholder.jpeg")));
+        imgPortrait.setImage(image);
+    }
 
     @FXML
     private void goToMain(ActionEvent event) {

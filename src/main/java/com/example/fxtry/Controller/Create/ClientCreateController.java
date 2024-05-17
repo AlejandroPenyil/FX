@@ -23,6 +23,7 @@ public class ClientCreateController {
             // Acceso al stage actual
             Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
+            secondScene.getStylesheets().add(getClass().getResource("/com/example/fxtry/style.css").toExternalForm());
             // Mostrar la segunda escena en el stage actual
             currentStage.setScene(secondScene);
 

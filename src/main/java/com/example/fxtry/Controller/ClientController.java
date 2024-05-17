@@ -34,7 +34,7 @@ public class ClientController {
     private void initialize(){
         tcName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
         tcPassword.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContraseña()));
-        tvwClient.getItems().add(admin);
+//        tvwClient.getItems().add(admin);
 
         for (int i = 0; i < 50; i++) {
             User user = new User();

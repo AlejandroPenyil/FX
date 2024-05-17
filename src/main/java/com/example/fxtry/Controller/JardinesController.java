@@ -1,6 +1,5 @@
 package com.example.fxtry.Controller;
 
-import com.example.fxtry.Controller.Create.ClientCreateController;
 import com.example.fxtry.Controller.Create.JardinCreateController;
 import com.example.fxtry.Model.User;
 import javafx.beans.property.SimpleStringProperty;
@@ -17,8 +16,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import static com.example.fxtry.Controller.LoginController.admin;
-
 public class JardinesController {
     @FXML
     private TableView<User> tvwClient;
@@ -31,7 +28,7 @@ public class JardinesController {
 
         tcName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
         tcPassword.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContraseña()));
-        tvwClient.getItems().add(admin);
+//        tvwClient.getItems().add(admin);
 
     }
 
@@ -47,6 +44,7 @@ public class JardinesController {
             // Acceso al stage actual
             Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
+            secondScene.getStylesheets().add(getClass().getResource("/com/example/fxtry/style.css").toExternalForm());
             // Mostrar la segunda escena en el stage actual
             currentStage.setScene(secondScene);
 
@@ -58,7 +56,7 @@ public class JardinesController {
 
     public void goToCreate(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fxtry/jardin-create-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fxtry/jardin/jardin-create-view.fxml"));
             Parent secondSceneParent = loader.load();
             Scene secondScene = new Scene(secondSceneParent);
             // Acceso al controlador de la segunda escena, si es necesario
@@ -70,6 +68,7 @@ public class JardinesController {
             Scene scene = contextMenu.getOwnerNode().getScene();
             Stage currentStage = (Stage) scene.getWindow();
 
+            secondScene.getStylesheets().add(getClass().getResource("/com/example/fxtry/style.css").toExternalForm());
             // Mostrar la segunda escena en el stage actual
             currentStage.setScene(secondScene);
 

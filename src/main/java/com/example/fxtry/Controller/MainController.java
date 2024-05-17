@@ -60,7 +60,7 @@ public class MainController {
     private void goToJardines(ActionEvent event) {
         try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fxtry/jardines-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fxtry/jardin/jardines-view.fxml"));
             Parent secondSceneParent = loader.load();
             Scene secondScene = new Scene(secondSceneParent);
             // Acceso al controlador de la segunda escena, si es necesario
