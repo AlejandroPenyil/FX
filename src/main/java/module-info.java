@@ -14,6 +14,7 @@ module com.example.fxtry {
 
     opens com.example.fxtry to javafx.fxml;
     opens com.example.fxtry.Controller to javafx.fxml;
+    opens com.example.fxtry.Controller.Create to javafx.fxml;
     opens com.example.fxtry.Model to java.base;
 
     exports com.example.fxtry;
