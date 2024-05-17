@@ -25,6 +25,7 @@ public class LoginController {
 
             // Mostrar la segunda escena en el stage actual
             currentStage.setScene(secondScene);
+
             currentStage.show();
         } catch (IOException e) {
             e.printStackTrace();
