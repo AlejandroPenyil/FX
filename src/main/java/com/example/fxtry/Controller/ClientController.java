@@ -1,15 +1,36 @@
 package com.example.fxtry.Controller;
 
+import com.example.fxtry.Model.User;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static com.example.fxtry.Controller.LoginController.admin;
+
 public class ClientController {
+
+    @FXML
+    private TableView<User> tvwClient;
+
+    @FXML
+    private TableColumn<User, String> tcName;
+
+    @FXML
+    private void initialize(){
+        tcName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
+        tvwClient.getItems().add(admin);
+
+    }
+
     @FXML
     private void goToMain(ActionEvent event) {
         try {

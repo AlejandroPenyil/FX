@@ -13,7 +13,9 @@ module com.example.fxtry {
     requires static lombok;
 
     opens com.example.fxtry to javafx.fxml;
+    opens com.example.fxtry.Controller to javafx.fxml;
+    opens com.example.fxtry.Model to java.base;
+
     exports com.example.fxtry;
     exports com.example.fxtry.Controller;
-    opens com.example.fxtry.Controller to javafx.fxml;
 }

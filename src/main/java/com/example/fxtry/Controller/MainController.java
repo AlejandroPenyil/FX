@@ -7,13 +7,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import lombok.Generated;
-import lombok.Getter;
-import lombok.Setter;
+
 
 import java.io.IOException;
-@Getter
-@Setter
+
 public class MainController {
 
     @FXML
