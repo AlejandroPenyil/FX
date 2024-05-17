@@ -31,7 +31,7 @@ public class LoginController {
 
     @FXML
     private void initialize(){
-        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/placeholder.jpeg")));
+        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/logo.png")));
         imgPortrait.setImage(image);
     }
 
