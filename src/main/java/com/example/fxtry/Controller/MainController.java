@@ -1,15 +1,21 @@
 package com.example.fxtry.Controller;
 
+import com.example.fxtry.Model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import lombok.Generated;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.IOException;
-
+@Getter
+@Setter
 public class MainController {
+
     @FXML
     private void goToClient(ActionEvent event) {
         try {

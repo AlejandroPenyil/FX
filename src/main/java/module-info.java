@@ -10,6 +10,7 @@ module com.example.fxtry {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires static lombok;
 
     opens com.example.fxtry to javafx.fxml;
     exports com.example.fxtry;
