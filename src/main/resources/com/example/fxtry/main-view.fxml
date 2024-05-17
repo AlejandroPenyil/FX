@@ -5,24 +5,24 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxtry.Controller.MainController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxtry.Controller.MainController">
    <children>
       <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="300.0" prefWidth="600.0" spacing="20.0">
+            <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="300.0" prefWidth="600.0" spacing="30.0">
                <children>
-                  <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="200.0" spacing="20.0">
+                  <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="200.0" spacing="30.0">
                      <children>
                         <Button alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToClient" text="Clientes" textAlignment="CENTER" wrapText="true" />
-                        <Button alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Presupuestos" textAlignment="CENTER" wrapText="true" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToPresupuestos" text="Presupuestos" textAlignment="CENTER" wrapText="true" />
                         <Button alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToJardines" text="Jardines" textAlignment="CENTER" wrapText="true" />
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER" prefWidth="200.0" spacing="20.0">
+                  <VBox alignment="CENTER" prefWidth="200.0" spacing="30.0">
                      <children>
-                        <Button alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Facturas" textAlignment="CENTER" wrapText="true" />
-                        <Button alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" textAlignment="CENTER" wrapText="true" />
-                        <Button alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" textAlignment="CENTER" wrapText="true" />
+                        <Button onAction="#goToFacturas" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Facturas" textAlignment="CENTER" wrapText="true" />
+                        <Button onAction="#goToImagenes" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Imagenes" textAlignment="CENTER" wrapText="true" />
+                        <Button onAction="#goToPeticiones" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Peticiones" textAlignment="CENTER" wrapText="true" />
                      </children>
                   </VBox>
                </children>

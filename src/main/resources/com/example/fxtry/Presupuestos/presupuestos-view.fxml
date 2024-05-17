@@ -8,7 +8,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.fxtry.Controller.JardinesController"
+            fx:controller="com.example.fxtry.Controller.PresupuestosController"
             prefHeight="600.0" prefWidth="1000.0">
     <children>
         <BorderPane layoutX="152.0" layoutY="67.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -18,7 +18,7 @@
                         <Menu mnemonicParsing="false" text="Opciones">
                             <items>
                                 <MenuItem mnemonicParsing="false" text="Crear" onAction="#goToCreate"/>
-                                <MenuItem mnemonicParsing="false" text="Modificar" />
+                                <MenuItem mnemonicParsing="false" text="Modificar" onAction="#goToUpdate" />
                                 <MenuItem mnemonicParsing="false" text="Eliminar" />
                             </items>
                         </Menu>

@@ -3,6 +3,7 @@ package com.example.fxtry;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -13,6 +14,8 @@ public class FXApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(FXApplication.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Generic");
+        Image icon = new Image(getClass().getResourceAsStream("/images/placeholder.jpeg"));
+        stage.getIcons().add(icon);
         scene.getStylesheets().add(getClass().getResource("/com/example/fxtry/style.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
