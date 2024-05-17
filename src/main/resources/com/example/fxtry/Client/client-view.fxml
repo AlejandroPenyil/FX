@@ -19,7 +19,7 @@
                 <Menu mnemonicParsing="false" text="Opciones">
                   <items>
                     <MenuItem mnemonicParsing="false" text="Crear" onAction="#goToCreate"/>
-                        <MenuItem mnemonicParsing="false" text="Modificar" />
+                        <MenuItem mnemonicParsing="false" text="Modificar" onAction="#goToUpdate" />
                         <MenuItem mnemonicParsing="false" text="Eliminar" />
                   </items>
                 </Menu>

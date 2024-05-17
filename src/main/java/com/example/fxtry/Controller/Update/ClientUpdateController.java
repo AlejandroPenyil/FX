@@ -1,4 +1,4 @@
-package com.example.fxtry.Controller.Create;
+package com.example.fxtry.Controller.Update;
 
 import com.example.fxtry.Controller.ClientController;
 import javafx.event.ActionEvent;
@@ -6,11 +6,24 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ClientCreateController {
+import static com.example.fxtry.Controller.ClientController.updatable;
+
+public class ClientUpdateController {
+
+    @FXML
+    private TextField txtName, txtPassword;
+
+    @FXML
+    private void initialize(){
+        txtName.setText(updatable.getNombre());
+        txtPassword.setText((updatable.getContraseña()));
+    }
+
     @FXML
     private void goToClient(ActionEvent event) {
         try {

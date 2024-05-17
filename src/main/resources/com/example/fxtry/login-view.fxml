@@ -9,7 +9,7 @@
          <children>
             <TextField fx:id="lblName" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="300.0" promptText="Correo" />
             <PasswordField fx:id="lblPasword" maxWidth="300.0" promptText="Contraseña" />
-            <Button maxHeight="1.7976931348623157E308" maxWidth="300.0" mnemonicParsing="false" onAction="#goToMain" text="Button" />
+            <Button maxHeight="1.7976931348623157E308" maxWidth="300.0" mnemonicParsing="false" onAction="#goToMain" text="Iniciar sesión" />
          </children>
       </VBox>
    </children>
