@@ -10,5 +10,48 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.fxtry.Controller.FacturasController"
             prefHeight="600.0" prefWidth="1000.0">
-
+    <children>
+        <BorderPane layoutX="152.0" layoutY="67.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <top>
+                <MenuBar cache="true" useSystemMenuBar="true" BorderPane.alignment="CENTER">
+                    <menus>
+                        <Menu mnemonicParsing="false" text="Opciones">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Crear" onAction="#goToCreate"/>
+                                <MenuItem mnemonicParsing="false" text="Modificar" onAction="#goToUpdate" />
+                                <MenuItem mnemonicParsing="false" text="Eliminar" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Filtrar">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Delete" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Help">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="About" />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+            </top>
+            <center>
+                <TableView fx:id="tvwClient" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <columns>
+                        <TableColumn fx:id="tcName" prefWidth="125.0" text="Nombre" />
+                        <TableColumn prefWidth="125.0" text="Apellido" />
+                        <TableColumn prefWidth="125.0" text="Correo" />
+                        <TableColumn fx:id="tcPassword" prefWidth="125.0" text="Contraseña" />
+                    </columns>
+                </TableView>
+            </center>
+            <bottom>
+                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Button alignment="CENTER" contentDisplay="CENTER" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToMain" text="Volver" textAlignment="CENTER" />
+                    </children>
+                </HBox>
+            </bottom>
+        </BorderPane>
+    </children>
 </AnchorPane>
