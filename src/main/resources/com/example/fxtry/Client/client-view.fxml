@@ -18,14 +18,14 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Opciones">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Crear" onAction="#goToCreate"/>
-                        <MenuItem mnemonicParsing="false" text="Modificar" onAction="#goToUpdate" />
+                    <MenuItem mnemonicParsing="false" onAction="#goToCreate" text="Crear" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToUpdate" text="Modificar" />
                         <MenuItem mnemonicParsing="false" text="Eliminar" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Filtrar">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
+                    <MenuItem mnemonicParsing="false" text="Buscar nombre" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
