@@ -6,6 +6,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -18,14 +19,14 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Opciones">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#goToCreate" text="Crear" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToCreate" text="Crear" />
                         <MenuItem mnemonicParsing="false" onAction="#goToUpdate" text="Modificar" />
-                        <MenuItem mnemonicParsing="false" text="Eliminar" />
+                        <MenuItem mnemonicParsing="false" onAction="#delete" text="Eliminar" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Filtrar">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Buscar nombre" />
+                    <MenuItem mnemonicParsing="false" text="placeholder" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
@@ -49,6 +50,12 @@
          <bottom>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" BorderPane.alignment="CENTER">
                <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0" spacing="15.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="Buscar" />
+                        <TextField promptText="Nombre" />
+                     </children>
+                  </HBox>
                   <Button alignment="CENTER" contentDisplay="CENTER" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToMain" text="Volver" textAlignment="CENTER" />
                </children>
             </HBox>
