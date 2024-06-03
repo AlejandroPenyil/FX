@@ -36,12 +36,6 @@ public class ClientController {
         tcPassword.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContraseña()));
 //        tvwClient.getItems().add(admin);
 
-        for (int i = 0; i < 50; i++) {
-            User user = new User();
-            user.setNombre("paco"+i);
-            user.setContraseña("10"+i);
-            tvwClient.getItems().add(user);
-        }
 //        tvwClient.refresh();
     }
 

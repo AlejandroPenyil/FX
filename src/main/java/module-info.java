@@ -11,6 +11,9 @@ module com.example.fxtry {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires static lombok;
+    requires okhttp3;
+    requires retrofit2.converter.gson;
+    requires retrofit2;
 
     opens com.example.fxtry to javafx.fxml;
     opens com.example.fxtry.Controller to javafx.fxml;
