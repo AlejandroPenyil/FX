@@ -19,10 +19,12 @@ module com.example.fxtry {
     opens com.example.fxtry.Controller to javafx.fxml;
     opens com.example.fxtry.Controller.Create to javafx.fxml;
     opens com.example.fxtry.Controller.Update to javafx.fxml;
-    opens com.example.fxtry.Model to com.google.gson;
+    opens com.example.fxtry.Model;
 
     exports com.example.fxtry;
     exports com.example.fxtry.Controller;
     exports com.example.fxtry.Controller.Create;
     exports com.example.fxtry.Controller.Update;
+    exports com.example.fxtry.Model;
+
 }
