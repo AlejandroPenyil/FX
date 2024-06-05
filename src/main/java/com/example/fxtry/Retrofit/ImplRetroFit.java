@@ -7,6 +7,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 import java.io.IOException;
+import java.util.List;
 
 public class ImplRetroFit {
     private final iUsuarioService usuarioService;
@@ -23,5 +24,11 @@ public class ImplRetroFit {
         } else {
             return null;
         }
+    }
+
+    public List<UsuarioDTO> getUsuarios() throws IOException {
+        Call<List<UsuarioDTO>> call = usuarioService.getUsuarios();
+        Response<List<UsuarioDTO>> response = call.execute();
+        return response.body();
     }
 }

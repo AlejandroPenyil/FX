@@ -3,6 +3,7 @@ package com.example.fxtry.Controller;
 import com.example.fxtry.Controller.Create.ClientCreateController;
 import com.example.fxtry.Controller.Update.ClientUpdateController;
 import com.example.fxtry.Model.UsuarioDTO;
+import com.example.fxtry.Retrofit.ImplRetroFit;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,25 +17,42 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 public class ClientController {
     public static UsuarioDTO updatable = new UsuarioDTO();
 
     //TODO crear variable para realizar el filtrado
 
+    ImplRetroFit implRetroFit;
+
     @FXML
     private TableView<UsuarioDTO> tvwClient;
 
     @FXML
-    private TableColumn<UsuarioDTO, String> tcName, tcPassword;
+    private TableColumn<UsuarioDTO, String> tcName, tcPassword, tcUsuario, tcId, tcCorreo, tcApellido, tcDni, tcTelefono, tcDireccion, tcRol;
 
     @FXML
-    private void initialize(){
+    private void initialize() throws IOException {
+        implRetroFit = new ImplRetroFit();
         tcName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
         tcPassword.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContraseña()));
+        tcUsuario.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUserName()));
+        tcApellido.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getApellidos()));
+        tcCorreo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCorreo()));
+        tcDireccion.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDireccion()));
+        tcRol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRol()));
+        tcDni.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDni()));
+        tcId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId().toString()));
+        tcTelefono.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTelefono()));
 //        tvwClient.getItems().add(admin);
+        List<UsuarioDTO> usuarioDTOList = implRetroFit.getUsuarios();
 
-//        tvwClient.refresh();
+        for (UsuarioDTO usuarioDTO : usuarioDTOList){
+            tvwClient.getItems().add(usuarioDTO);
+        }
+
+        tvwClient.refresh();
     }
 
     @FXML
