@@ -8,15 +8,14 @@ import java.util.concurrent.TimeUnit;
 
 public class RetrofitClient {
     private static Retrofit retrofit;
-    private static final String baseUrl = "http://localhost:9004/";
+    private static final String baseUrl = "http://51.124.190.104:8080/";
 
-    public static Retrofit getInstanceRetrofit(){
+    public static Retrofit getInstanceRetrofit() {
+        if (retrofit == null) {
+            OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
+                    .readTimeout(600, TimeUnit.SECONDS);
 
-        if (retrofit == null){
-            OkHttpClient.Builder httpClient = new OkHttpClient.Builder().readTimeout(600, TimeUnit.SECONDS);
-
-
-            retrofit= new Retrofit.Builder()
+            retrofit = new Retrofit.Builder()
                     .baseUrl(baseUrl)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(httpClient.build())

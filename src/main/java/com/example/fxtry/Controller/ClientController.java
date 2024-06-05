@@ -2,7 +2,7 @@ package com.example.fxtry.Controller;
 
 import com.example.fxtry.Controller.Create.ClientCreateController;
 import com.example.fxtry.Controller.Update.ClientUpdateController;
-import com.example.fxtry.Model.User;
+import com.example.fxtry.Model.UsuarioDTO;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,18 +17,16 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import static com.example.fxtry.Controller.LoginController.admin;
-
 public class ClientController {
-    public static User updatable = new User();
+    public static UsuarioDTO updatable = new UsuarioDTO();
 
     //TODO crear variable para realizar el filtrado
 
     @FXML
-    private TableView<User> tvwClient;
+    private TableView<UsuarioDTO> tvwClient;
 
     @FXML
-    private TableColumn<User, String> tcName, tcPassword;
+    private TableColumn<UsuarioDTO, String> tcName, tcPassword;
 
     @FXML
     private void initialize(){
@@ -86,9 +84,9 @@ public class ClientController {
 
     public void goToUpdate(ActionEvent event) {
         try {
-            User selectedUser = tvwClient.getSelectionModel().getSelectedItem();
+            UsuarioDTO selectedUsuarioDTO = tvwClient.getSelectionModel().getSelectedItem();
 
-            updatable= selectedUser;
+            updatable= selectedUsuarioDTO;
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fxtry/Client/client-update-view.fxml"));
             Parent secondSceneParent = loader.load();
@@ -113,7 +111,7 @@ public class ClientController {
     }
 
     public void delete(ActionEvent event){
-        User selectedUser = tvwClient.getSelectionModel().getSelectedItem();
+        UsuarioDTO selectedUsuarioDTO = tvwClient.getSelectionModel().getSelectedItem();
 
         //TODO metodo para softdelete, no va haber hard delete
     }

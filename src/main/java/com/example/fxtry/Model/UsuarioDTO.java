@@ -1,10 +1,9 @@
 package com.example.fxtry.Model;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-public class User {
+public class UsuarioDTO {
     private Integer id;
     private String nombre;
     private String contraseña;

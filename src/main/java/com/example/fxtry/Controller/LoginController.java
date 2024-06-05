@@ -1,6 +1,8 @@
 package com.example.fxtry.Controller;
 
-import com.example.fxtry.Model.User;
+import com.example.fxtry.Model.LogginRequest;
+import com.example.fxtry.Model.UsuarioDTO;
+import com.example.fxtry.Retrofit.ImplRetroFit;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,13 +14,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import org.controlsfx.control.cell.ImageGridCell;
 
 import java.io.IOException;
 import java.util.Objects;
 
 public class LoginController {
-    public static User admin = new User();
+    public static UsuarioDTO admin = new UsuarioDTO();
+
+    private ImplRetroFit implRetroFit;
 
     @FXML
     private ImageView imgPortrait;
@@ -31,6 +34,7 @@ public class LoginController {
 
     @FXML
     private void initialize(){
+        implRetroFit = new ImplRetroFit();
         Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/logo.png")));
         imgPortrait.setImage(image);
     }
@@ -49,8 +53,11 @@ public class LoginController {
             // Acceso al stage actual
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-            admin.setNombre(lblName.getText().trim());
-            admin.setContraseña(lblPasword.getText());
+            LogginRequest loginRequest = new LogginRequest();
+            loginRequest.setUserName(lblName.getText().trim());
+            loginRequest.setPassword(lblPasword.getText());
+
+            admin = implRetroFit.usuarioLogin(loginRequest);
 
             secondScene.getStylesheets().add(getClass().getResource("/com/example/fxtry/style.css").toExternalForm());
             // Mostrar la segunda escena en el stage actual

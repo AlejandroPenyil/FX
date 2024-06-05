@@ -1,7 +1,7 @@
 package com.example.fxtry.Controller;
 
 import com.example.fxtry.Controller.Create.JardinCreateController;
-import com.example.fxtry.Model.User;
+import com.example.fxtry.Model.UsuarioDTO;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,10 +18,10 @@ import java.io.IOException;
 
 public class JardinesController {
     @FXML
-    private TableView<User> tvwClient;
+    private TableView<UsuarioDTO> tvwClient;
 
     @FXML
-    private TableColumn<User, String> tcName, tcPassword;
+    private TableColumn<UsuarioDTO, String> tcName, tcPassword;
 
     @FXML
     private void initialize() {
