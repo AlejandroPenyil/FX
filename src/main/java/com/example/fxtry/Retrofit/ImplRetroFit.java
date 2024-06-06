@@ -9,6 +9,8 @@ import retrofit2.Response;
 import java.io.IOException;
 import java.util.List;
 
+import static com.example.fxtry.Controller.LoginController.admin;
+
 public class ImplRetroFit {
     private final iUsuarioService usuarioService;
 
@@ -36,5 +38,10 @@ public class ImplRetroFit {
         Call<UsuarioDTO> call = usuarioService.usuarioUpdate(usuarioDTO.getId(),usuarioDTO);
         Response<UsuarioDTO> response = call.execute();
         return response.body();
+    }
+
+    public void deleteUsuario(UsuarioDTO usuarioDTO) throws IOException {
+        Call<Void> call = usuarioService.usuarioDelete(usuarioDTO.getId());
+        call.execute();
     }
 }

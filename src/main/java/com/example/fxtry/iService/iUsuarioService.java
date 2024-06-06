@@ -16,4 +16,7 @@ public interface iUsuarioService {
 
     @PUT("/usuarios/{id}")
     Call<UsuarioDTO> usuarioUpdate(@Path("id")Integer id ,@Body UsuarioDTO loginRequest);
+
+    @DELETE("/usuarios/{id}")
+    Call<Void> usuarioDelete(@Path("id") Integer id);
 }

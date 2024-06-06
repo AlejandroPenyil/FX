@@ -128,10 +128,15 @@ public class ClientController {
         }
     }
 
-    public void delete(ActionEvent event){
+    public void delete(ActionEvent event) throws IOException {
         UsuarioDTO selectedUsuarioDTO = tvwClient.getSelectionModel().getSelectedItem();
 
-        //TODO metodo para softdelete, no va haber hard delete
+        implRetroFit.deleteUsuario(selectedUsuarioDTO);
+
+        tvwClient.getItems().remove(selectedUsuarioDTO);
+
+        // Actualiza la tabla para reflejar los cambios
+        tvwClient.refresh();
     }
 
 }
