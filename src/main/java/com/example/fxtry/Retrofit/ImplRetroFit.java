@@ -31,4 +31,10 @@ public class ImplRetroFit {
         Response<List<UsuarioDTO>> response = call.execute();
         return response.body();
     }
+
+    public UsuarioDTO putUsuario(UsuarioDTO usuarioDTO) throws IOException {
+        Call<UsuarioDTO> call = usuarioService.usuarioUpdate(usuarioDTO.getId(),usuarioDTO);
+        Response<UsuarioDTO> response = call.execute();
+        return response.body();
+    }
 }

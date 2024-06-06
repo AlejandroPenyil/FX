@@ -13,13 +13,13 @@
                         <VBox alignment="CENTER" prefHeight="200.0" spacing="30.0">
                             <children>
                                 <TextField fx:id="txtName" promptText="Nombre" />
-                                <TextField promptText="Apellidos" />
+                                <TextField fx:id="txtApellidos" promptText="Apellidos" />
                             </children>
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="200.0" spacing="30.0">
                             <children>
-                                <TextField promptText="Correo" />
-                                <TextField fx:id="txtPassword" promptText="Contraseña" />
+                                <TextField fx:id="txtCorreo" promptText="Correo" />
+                                <TextField fx:id="txtDireccion" promptText="Dirección" />
                             </children>
                         </VBox>
                     </children>
@@ -28,7 +28,7 @@
             <bottom>
                 <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Button mnemonicParsing="false" text="Crear">
+                        <Button fx:id="btnModificar" mnemonicParsing="false" onAction="#update" text="Modificar" textAlignment="CENTER">
                             <HBox.margin>
                                 <Insets bottom="15.0" top="15.0" />
                             </HBox.margin>

@@ -3,9 +3,7 @@ package com.example.fxtry.iService;
 import com.example.fxtry.Model.LogginRequest;
 import com.example.fxtry.Model.UsuarioDTO;
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
+import retrofit2.http.*;
 
 import java.util.List;
 
@@ -15,4 +13,7 @@ public interface iUsuarioService {
 
     @GET("/usuarios")
     Call<List<UsuarioDTO>> getUsuarios();
+
+    @PUT("/usuarios/{id}")
+    Call<UsuarioDTO> usuarioUpdate(@Path("id")Integer id ,@Body UsuarioDTO loginRequest);
 }
