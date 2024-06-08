@@ -4,6 +4,7 @@ import com.example.fxtry.Controller.Create.ClientCreateController;
 import com.example.fxtry.Controller.Update.ClientUpdateController;
 import com.example.fxtry.Model.UsuarioDTO;
 import com.example.fxtry.Retrofit.ImplRetroFit;
+import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,7 +20,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 
-public class ClientController {
+public class ClientController extends Application {
     public static UsuarioDTO updatable = new UsuarioDTO();
 
     //TODO crear variable para realizar el filtrado
@@ -31,6 +32,19 @@ public class ClientController {
 
     @FXML
     private TableColumn<UsuarioDTO, String> tcName, tcPassword, tcUsuario, tcId, tcCorreo, tcApellido, tcDni, tcTelefono, tcDireccion, tcRol;
+
+    @Override
+    public void start(Stage primaryStage) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/example/fxtry/main-view.fxml"));
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(getClass().getResource("/com/example/fxtry/style.css").toExternalForm());
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void initialize() throws IOException {
@@ -138,6 +152,5 @@ public class ClientController {
         // Actualiza la tabla para reflejar los cambios
         tvwClient.refresh();
     }
-
 }
 

@@ -11,8 +11,14 @@ public interface iUsuarioService {
     @POST("/usuarios/login")
     Call<UsuarioDTO> usuarioLogin(@Body LogginRequest loginRequest);
 
+    @POST("/usuarios")
+    Call<UsuarioDTO> usuarioCreate(@Body UsuarioDTO usuarioDTO);
+
     @GET("/usuarios")
     Call<List<UsuarioDTO>> getUsuarios();
+
+    @GET("/usuarios/{id}")
+    Call<UsuarioDTO> getUsuario(@Path("id") Integer id);
 
     @PUT("/usuarios/{id}")
     Call<UsuarioDTO> usuarioUpdate(@Path("id")Integer id ,@Body UsuarioDTO loginRequest);

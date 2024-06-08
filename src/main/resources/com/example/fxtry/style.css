@@ -22,47 +22,48 @@
     -fx-border-width: 2px; /* Opcional: puedes ajustar el ancho del borde */
 }
 
-.table-view:focused {
-    -fx-border-color: #9dff00;
-    -fx-border-width: 2px;
-}
+/*.table-view:focused {*/
+/*    -fx-border-color: #9dff00;*/
+/*    -fx-border-width: 2px;*/
+/*}*/
 
-/* Cambiar el color de fondo y borde de las filas seleccionadas */
-.table-view .table-row-cell:focused {
-    -fx-background-color: #9dff00;
-    -fx-border-color: #9dff00;
-    -fx-border-width: 2px;
-}
+/*!* Cambiar el color de fondo y borde de las filas seleccionadas *!*/
+/*.table-view .table-row-cell:focused, .table-view .table-row-cell:selected {*/
+/*    -fx-background-color: #9dff00;*/
+/*    -fx-border-color: #9dff00;*/
+/*    -fx-border-width: 2px;*/
+/*    -fx-padding: 0;*/
+/*    -fx-alignment: CENTER;*/
+/*}*/
 
-.table-view .table-row-cell:selected {
-    -fx-background-color: #9dff00;
-    -fx-border-color: #9dff00;
-    fx-table-cell-border-color: #9dff00;
-}
+/*!* Cambiar el color de fondo y borde de las celdas seleccionadas *!*/
+/*.table-view .table-cell:focused, .table-view .table-cell:selected {*/
+/*    -fx-background-color: #9dff00;*/
+/*    -fx-border-color: #9dff00;*/
+/*    -fx-border-width: 2px;*/
+/*    -fx-padding: 0 5px;*/
+/*    -fx-alignment: CENTER;*/
+/*}*/
 
-/* Cambiar el color de fondo y borde de las celdas seleccionadas */
-.table-view .table-cell:selected {
-    -fx-background-color: #9dff00;
-    -fx-border-color: #9dff00;
-    -fx-border-width: 2px;
-    fx-table-cell-border-color: #9dff00;
-}
+/*!* Asegúrate de que las celdas no tengan padding adicional *!*/
+/*.table-view .table-cell {*/
+/*    -fx-padding: 0 5px;*/
+/*    -fx-alignment: CENTER_LEFT;*/
+/*}*/
 
-/* Cambiar el color de fondo y borde de las columnas seleccionadas */
-.table-column-header:focused {
-    -fx-background-color: #9dff00;
-    -fx-border-color: #9dff00;
-}
+/*!* Ajusta el padding de las filas *!*/
+/*.table-view .table-row-cell {*/
+/*    -fx-padding: 0;*/
+/*    -fx-alignment: CENTER;*/
+/*}*/
 
-.table-view .column-header-background .nested-column-header:focused {
-    -fx-background-color: #9dff00;
-    -fx-border-color: #9dff00;
-}
+/*!* Asegúrate de que las filas seleccionadas no se desalineen *!*/
+/*.table-view .table-row-cell:selected .table-cell {*/
+/*    -fx-padding: 0 5px;*/
+/*    -fx-alignment: CENTER;*/
+/*}*/
 
-.table-view .table-cell {
-    -fx-table-cell-border-color: transparent;
-}
 
-.table-view:focused .table-row-cell:filled:focused .table-cell:filled:focused {
-    -fx-table-cell-border-color: #9dff00;
+#lblError {
+    -fx-text-fill: #ff0000;
 }

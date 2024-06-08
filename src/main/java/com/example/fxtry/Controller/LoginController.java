@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -30,6 +31,9 @@ public class LoginController {
     private TextField lblName;
 
     @FXML
+    private Label lblError;
+
+    @FXML
     private PasswordField lblPasword;
 
     @FXML
@@ -42,7 +46,7 @@ public class LoginController {
     @FXML
     private void goToMain(ActionEvent event) {
         try {
-
+            lblError.setVisible(false);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fxtry/main-view.fxml"));
             Parent secondSceneParent = loader.load();
             Scene secondScene = new Scene(secondSceneParent);
@@ -55,17 +59,24 @@ public class LoginController {
 
             LogginRequest loginRequest = new LogginRequest();
             loginRequest.setUserName(lblName.getText().trim());
-            loginRequest.setPassword(lblPasword.getText());
+            loginRequest.setContraseña(lblPasword.getText());
 
             admin = implRetroFit.usuarioLogin(loginRequest);
 
-            secondScene.getStylesheets().add(getClass().getResource("/com/example/fxtry/style.css").toExternalForm());
-            // Mostrar la segunda escena en el stage actual
-            currentStage.setScene(secondScene);
+            if(admin.getRol().equals("ADMIN")) {
 
-            currentStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
+                secondScene.getStylesheets().add(getClass().getResource("/com/example/fxtry/style.css").toExternalForm());
+                // Mostrar la segunda escena en el stage actual
+                currentStage.setScene(secondScene);
+
+                currentStage.show();
+            }else{
+                lblError.setVisible(true);
+                lblError.setText("Usuario sin permisos de Administrador, permisos: "+admin.getRol());
+            }
+        } catch (IOException | NullPointerException e) {
+            lblError.setVisible(true);
+            lblError.setText("Usuario no existente o contraseña incorrecta");
         }
     }
 }

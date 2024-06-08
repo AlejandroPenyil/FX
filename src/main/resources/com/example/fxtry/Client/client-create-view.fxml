@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxtry.Controller.Create.ClientCreateController">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxtry.Controller.Create.ClientCreateController">
    <children>
       <BorderPane layoutX="200.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -17,28 +12,37 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="200.0" spacing="30.0">
                      <children>
-                        <TextField promptText="Nombre" />
-                        <TextField promptText="Apellidos" />
+                        <TextField fx:id="txtNombre" promptText="Nombre" />
+                        <TextField fx:id="txtApellidos" promptText="Apellidos" />
+                        <TextField fx:id="txtUsuario" promptText="Nombre de Usuario" />
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" prefHeight="200.0" spacing="30.0">
                      <children>
-                        <TextField promptText="Correo" />
-                        <TextField promptText="Contraseña" />
+                        <TextField fx:id="txtCorreo" promptText="Correo" />
+                        <TextField fx:id="txtContraseña" promptText="Contraseña" />
+                        <TextField fx:id="txtDni" promptText="DNI" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" spacing="30.0">
+                     <children>
+                        <ComboBox fx:id="cmbRol" prefWidth="150.0" promptText="Rol" />
+                        <TextField fx:id="txtDireccion" promptText="Dirección" />
+                        <TextField fx:id="txtTelefono" promptText="Telefono" />
                      </children>
                   </VBox>
                </children>
             </HBox>
          </center>
          <bottom>
-            <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" BorderPane.alignment="CENTER">
+            <HBox fx:id="create" alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" text="Crear">
+                  <Button mnemonicParsing="false" onAction="#create" text="Crear">
                      <HBox.margin>
                         <Insets bottom="15.0" top="15.0" />
                      </HBox.margin>
                   </Button>
-                  <Button defaultButton="true" mnemonicParsing="false" text="Cancelar" onAction="#goToClient">
+                  <Button defaultButton="true" mnemonicParsing="false" onAction="#goToClient" text="Cancelar">
                      <HBox.margin>
                         <Insets bottom="15.0" right="15.0" top="15.0" />
                      </HBox.margin>

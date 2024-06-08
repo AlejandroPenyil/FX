@@ -2,7 +2,10 @@ package com.example.fxtry.Controller;
 
 import com.example.fxtry.Controller.Create.ClientCreateController;
 import com.example.fxtry.Controller.Update.ClientUpdateController;
+import com.example.fxtry.Model.ImagenDTO;
+import com.example.fxtry.Model.JardinesDTO;
 import com.example.fxtry.Model.UsuarioDTO;
+import com.example.fxtry.Retrofit.ImplRetroFit;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,31 +19,65 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
+
+import static com.example.fxtry.Controller.AlertController.showAlert;
 
 public class ImagenesController {
-    public static UsuarioDTO updatable = new UsuarioDTO();
-
-    //TODO crear variable para realizar el filtrado
-
-    @FXML
-    private TableView<UsuarioDTO> tvwClient;
+    public static ImagenDTO updatable = new ImagenDTO();
+    ImplRetroFit implRetroFit;
 
     @FXML
-    private TableColumn<UsuarioDTO, String> tcName, tcPassword;
+    private TableView<ImagenDTO> tvwClient;
 
     @FXML
-    private void initialize(){
-        tcName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
-        tcPassword.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContraseña()));
-//        tvwClient.getItems().add(admin);
+    private TableColumn<ImagenDTO, String> tcFecha,tcUrl,tcCliente,tcJardin,tcComentario;
 
-        for (int i = 0; i < 50; i++) {
-            UsuarioDTO usuarioDTO = new UsuarioDTO();
-            usuarioDTO.setNombre("paco"+i);
-            usuarioDTO.setContraseña("10"+i);
-            tvwClient.getItems().add(usuarioDTO);
+    @FXML
+    private void initialize() throws IOException {
+        implRetroFit = new ImplRetroFit();
+        tcUrl.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUbicacion()));
+        tcFecha.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFecha()));
+        tcComentario.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getComentario()));
+
+        tcCliente.setCellValueFactory(cellData -> {
+            String clienteId = String.valueOf(cellData.getValue().getIdUsuario());
+            UsuarioDTO usuarioDTO = null;
+            try {
+                usuarioDTO = implRetroFit.getUsuario(Integer.parseInt(clienteId));
+            } catch (IOException e) {
+                e.printStackTrace();
+                showAlert("Error", "No se pudo obtener el usuario con ID: " + clienteId);
+            }
+            if (usuarioDTO != null) {
+                return new SimpleStringProperty(usuarioDTO.getNombre() + " " + usuarioDTO.getApellidos());
+            } else {
+                return new SimpleStringProperty("Desconocido");
+            }
+        });
+
+        tcJardin.setCellValueFactory(cellData -> {
+            String clienteId = String.valueOf(cellData.getValue().getIdJardin());
+            JardinesDTO usuarioDTO = null;
+            try {
+                usuarioDTO = implRetroFit.getJardine(Integer.parseInt(clienteId));
+            } catch (IOException e) {
+                e.printStackTrace();
+                showAlert("Error", "No se pudo obtener el usuario con ID: " + clienteId);
+            }
+            if (usuarioDTO != null) {
+                return new SimpleStringProperty(usuarioDTO.getLocalizacion());
+            } else {
+                return new SimpleStringProperty("Desconocido");
+            }
+        });
+
+        List<ImagenDTO> imagenDTOList =  implRetroFit.getImagenes();
+        for(ImagenDTO imagenDTO : imagenDTOList){
+            tvwClient.getItems().add(imagenDTO);
         }
-//        tvwClient.refresh();
+
+        tvwClient.refresh();
     }
 
     @FXML
@@ -90,7 +127,7 @@ public class ImagenesController {
 
     public void goToUpdate(ActionEvent event) {
         try {
-            UsuarioDTO selectedUsuarioDTO = tvwClient.getSelectionModel().getSelectedItem();
+            ImagenDTO selectedUsuarioDTO = tvwClient.getSelectionModel().getSelectedItem();
 
             updatable= selectedUsuarioDTO;
 
@@ -117,7 +154,7 @@ public class ImagenesController {
     }
 
     public void delete(ActionEvent event){
-        UsuarioDTO selectedUsuarioDTO = tvwClient.getSelectionModel().getSelectedItem();
+        ImagenDTO selectedUsuarioDTO = tvwClient.getSelectionModel().getSelectedItem();
 
         //TODO metodo para softdelete, no va haber hard delete
     }

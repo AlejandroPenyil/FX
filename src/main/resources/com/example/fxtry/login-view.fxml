@@ -6,12 +6,13 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxtry.Controller.LoginController">
    <children>
-      <VBox alignment="CENTER" layoutX="215.0" layoutY="162.0" maxWidth="-Infinity" prefWidth="300.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" layoutY="-34.0" maxWidth="-Infinity" prefWidth="300.0" spacing="30.0" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-34.0">
          <children>
             <ImageView fx:id="imgPortrait" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
             <TextField fx:id="lblName" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="300.0" promptText="Correo" />
             <PasswordField fx:id="lblPasword" maxWidth="300.0" promptText="Contraseña" />
             <Button maxHeight="1.7976931348623157E308" maxWidth="300.0" mnemonicParsing="false" onAction="#goToMain" text="Iniciar sesión" />
+            <Label fx:id="lblError" textAlignment="CENTER" />
          </children>
       </VBox>
    </children>
