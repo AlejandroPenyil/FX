@@ -2,7 +2,7 @@ package com.example.fxtry.Controller;
 
 import com.example.fxtry.Controller.Create.ClientCreateController;
 import com.example.fxtry.Controller.Update.ClientUpdateController;
-import com.example.fxtry.Model.UsuarioDTO;
+import com.example.fxtry.Model.*;
 import com.example.fxtry.Retrofit.ImplRetroFit;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
@@ -15,15 +15,20 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.util.Base64;
 import java.util.List;
 
 public class ClientController extends Application {
     public static UsuarioDTO updatable = new UsuarioDTO();
-
-    //TODO crear variable para realizar el filtrado
 
     ImplRetroFit implRetroFit;
 
@@ -151,6 +156,61 @@ public class ClientController extends Application {
 
         // Actualiza la tabla para reflejar los cambios
         tvwClient.refresh();
+    }
+
+    public void goToHep(ActionEvent event) {
+        try {
+            Desktop desktop = Desktop.getDesktop();
+            URI uri = new URI("https://concrete-binder-4b1.notion.site/Clientes-de41359ba305459988a3876795bad890");
+            desktop.browse(uri);
+        } catch (IOException | URISyntaxException e) {
+            System.err.println("Error al abrir la URL: " + e.getMessage());
+        }
+    }
+
+    public void subir(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Busca la imagen");
+
+        // Agregar filtros de extensión si es necesario
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PDF Files", "*.pdf"),
+                new FileChooser.ExtensionFilter("All Files", "*.*")
+        );
+
+        Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+        ImagenDTO imagenDTO = new ImagenDTO();
+        UsuarioDTO selectedJardin = tvwClient.getSelectionModel().getSelectedItem();
+
+        if (selectedJardin != null) {
+            // Mostrar el FileChooser y capturar el archivo seleccionado
+            File selectedFile = fileChooser.showOpenDialog(currentStage);
+            if (selectedFile != null) {
+                try {
+                    FileUpload imagenUploadDto = new FileUpload();
+                    // Leer el contenido del archivo en un arreglo de bytes
+                    byte[] fileContent = Files.readAllBytes(selectedFile.toPath());
+
+                    imagenDTO.setIdJardin(selectedJardin.getId());
+                    imagenDTO.setIdUsuario(selectedJardin.getId());
+                    String encodedString = Base64.getEncoder().encodeToString(fileContent);
+                    imagenUploadDto.setContent(encodedString);
+                    imagenUploadDto.setFileName(selectedFile.getName());
+                    imagenUploadDto.setFileType(Files.probeContentType(selectedFile.toPath()));
+                    imagenUploadDto.setId(imagenDTO.getId());
+
+                    System.out.println(imagenUploadDto.getFileName());
+
+                    implRetroFit.uploadFacturas(imagenUploadDto);
+
+                    // Aquí puedes guardar la cadena codificada en Base64 en algún lugar si lo necesitas
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    AlertController.showAlert("File Error", "Could not read the file: " + e.getMessage());
+                }
+            }
+        }
     }
 }
 

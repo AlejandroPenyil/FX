@@ -7,6 +7,7 @@ import com.example.fxtry.iService.iJardinesService;
 import com.example.fxtry.iService.iPresupuestoDTO;
 import com.example.fxtry.iService.iUsuarioService;
 import com.example.fxtry.iService.iSolicitudeService;
+import com.example.fxtry.iService.iFacturaService;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -21,6 +22,7 @@ public class ImplRetroFit {
     private final iImagenService iImageneService;
     private final iPresupuestoDTO iPresupuestoDTO;
     private final iSolicitudeService iSolicitudeService;
+    private final iFacturaService iFacturaService;
 
     public ImplRetroFit() {
         this.jardinesService = RetrofitClient.getInstanceRetrofit().create(iJardinesService.class);
@@ -28,6 +30,7 @@ public class ImplRetroFit {
         this.iImageneService = RetrofitClient.getInstanceRetrofit().create(iImagenService.class);
         this.iPresupuestoDTO = RetrofitClient.getInstanceRetrofit().create(iPresupuestoDTO.class);
         this.iSolicitudeService = RetrofitClient.getInstanceRetrofit().create(iSolicitudeService.class);
+        this.iFacturaService = RetrofitClient.getInstanceRetrofit().create(iFacturaService.class);
     }
 
     public UsuarioDTO usuarioLogin(LogginRequest loginRequest) throws IOException {
@@ -119,5 +122,23 @@ public class ImplRetroFit {
         Call<List<SolicitudDTO>> call = iSolicitudeService.getSolicitudes();
         Response<List<SolicitudDTO>> response = call.execute();
         return response.body();
+    }
+
+
+    // Facturas
+    public List<FacturaDTO> getFacturas() throws IOException {
+        Call<List<FacturaDTO>> call = iFacturaService.getFacturas();
+        Response<List<FacturaDTO>> response = call.execute();
+        return response.body();
+    }
+
+    public void uploadFacturas(FileUpload imagenUploadDto) throws IOException {
+        Call<Void> call = iFacturaService.uploadImage(imagenUploadDto);
+        call.execute();
+    }
+
+    public void uploadPresupuesto(FileUpload imagenUploadDto) throws IOException {
+        Call<Void> call = iPresupuestoDTO.uploadImage(imagenUploadDto);
+        call.execute();
     }
 }

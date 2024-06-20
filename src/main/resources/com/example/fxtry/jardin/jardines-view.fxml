@@ -16,11 +16,6 @@
                                 <MenuItem mnemonicParsing="false" text="Eliminar" />
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Filtrar">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="Delete" />
-                            </items>
-                        </Menu>
                         <Menu mnemonicParsing="false" text="Help">
                             <items>
                                 <MenuItem mnemonicParsing="false" text="About" />
@@ -48,6 +43,7 @@
                         <Button fx:id="btnImagen" mnemonicParsing="false" onAction="#subir" text="Subir Imagen" />
                      </children>
                   </VBox>
+                  <Button fx:id="btnPresupuesto" mnemonicParsing="false" onAction="#subirPresupuesto" text="Añadir presupuesto" />
                     </children>
                 </HBox>
             </bottom>

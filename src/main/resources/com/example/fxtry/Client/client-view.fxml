@@ -16,14 +16,9 @@
                         <MenuItem mnemonicParsing="false" onAction="#delete" text="Eliminar" />
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Filtrar">
+                <Menu mnemonicParsing="false" text="Ayuda">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="placeholder" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
+                    <MenuItem mnemonicParsing="false" onAction="#goToHep" text="Abrir ayuda" />
                   </items>
                 </Menu>
               </menus>
@@ -50,11 +45,10 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0" spacing="15.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Buscar" />
-                        <TextField promptText="Nombre" />
+                        <Button fx:id="btnFactura" mnemonicParsing="false" onAction="#subir" text="Añadir Factura" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToMain" text="Volver" textAlignment="CENTER" />
                      </children>
                   </HBox>
-                  <Button alignment="CENTER" contentDisplay="CENTER" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToMain" text="Volver" textAlignment="CENTER" />
                </children>
             </HBox>
          </bottom>

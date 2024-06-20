@@ -12,14 +12,9 @@
                     <children>
                         <VBox alignment="CENTER" prefHeight="200.0" spacing="30.0">
                             <children>
-                                <TextField fx:id="txtName" promptText="Nombre" />
-                                <TextField promptText="Apellidos" />
-                            </children>
-                        </VBox>
-                        <VBox alignment="CENTER" prefHeight="200.0" spacing="30.0">
-                            <children>
-                                <TextField promptText="Correo" />
-                                <TextField fx:id="txtPassword" promptText="Contraseña" />
+                                <TextField fx:id="txtComentaio" promptText="Comentario" />
+                        <ComboBox fx:id="cmbCliente" prefWidth="150.0" promptText="Cliente" />
+                        <ComboBox fx:id="cmbJardin" prefWidth="150.0" promptText="Jardin" />
                             </children>
                         </VBox>
                     </children>

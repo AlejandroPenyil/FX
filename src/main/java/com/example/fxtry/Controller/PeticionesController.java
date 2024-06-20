@@ -2,7 +2,10 @@ package com.example.fxtry.Controller;
 
 import com.example.fxtry.Controller.Create.ClientCreateController;
 import com.example.fxtry.Controller.Update.ClientUpdateController;
+import com.example.fxtry.Model.JardinesDTO;
+import com.example.fxtry.Model.SolicitudDTO;
 import com.example.fxtry.Model.UsuarioDTO;
+import com.example.fxtry.Retrofit.ImplRetroFit;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,31 +19,60 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 public class PeticionesController {
-    public static UsuarioDTO updatable = new UsuarioDTO();
-
-    //TODO crear variable para realizar el filtrado
+    public static SolicitudDTO updatable = new SolicitudDTO();
+    ImplRetroFit implRetroFit;
+    @FXML
+    private TableView<SolicitudDTO> tvwClient;
 
     @FXML
-    private TableView<UsuarioDTO> tvwClient;
-
-    @FXML
-    private TableColumn<UsuarioDTO, String> tcName, tcPassword;
+    private TableColumn<SolicitudDTO, String> tcName, tcFecha, tcAtendida, tcDescripcion;
 
     @FXML
     private void initialize(){
-        tcName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
-        tcPassword.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContraseña()));
-//        tvwClient.getItems().add(admin);
+        implRetroFit = new ImplRetroFit();
+        tcFecha.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFechaSolicitud()));
+        tcDescripcion.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescripcion()));
 
-        for (int i = 0; i < 50; i++) {
+        tcAtendida.setCellValueFactory(cellData -> {
+            String clienteId = String.valueOf(cellData.getValue().isAtendida());
+            if(clienteId.equalsIgnoreCase("true")){
+                return new SimpleStringProperty("si");
+            } else {
+                return new SimpleStringProperty("No");
+            }
+        });
+
+        tcName.setCellValueFactory(cellData -> {
+            String clienteId = String.valueOf(cellData.getValue().getIdUsuario());
             UsuarioDTO usuarioDTO = new UsuarioDTO();
-            usuarioDTO.setNombre("paco"+i);
-            usuarioDTO.setContraseña("10"+i);
-            tvwClient.getItems().add(usuarioDTO);
+            try {
+                usuarioDTO = implRetroFit.getUsuario(Integer.parseInt(clienteId));
+            } catch (IOException e) {
+                e.printStackTrace();
+                AlertController.showAlert("Error", "No se pudo obtener el usuario con ID: " + clienteId);
+            }
+            if (usuarioDTO != null) {
+                return new SimpleStringProperty(usuarioDTO.getNombre() + " " + usuarioDTO.getApellidos());
+            } else {
+                return new SimpleStringProperty("Desconocido");
+            }
+        });
+
+        try {
+            List<SolicitudDTO> jardinDTOList = implRetroFit.getSolicitudes();
+
+            for (SolicitudDTO jardinDTO : jardinDTOList) {
+                tvwClient.getItems().add(jardinDTO);
+            }
+
+            tvwClient.refresh();
+        } catch (IOException e) {
+            e.printStackTrace();
+            AlertController.showAlert("Error", "No se pudo obtener la lista de jardines");
         }
-//        tvwClient.refresh();
     }
 
     @FXML
@@ -90,7 +122,7 @@ public class PeticionesController {
 
     public void goToUpdate(ActionEvent event) {
         try {
-            UsuarioDTO selectedUsuarioDTO = tvwClient.getSelectionModel().getSelectedItem();
+            SolicitudDTO selectedUsuarioDTO = tvwClient.getSelectionModel().getSelectedItem();
 
             updatable= selectedUsuarioDTO;
 
@@ -117,7 +149,7 @@ public class PeticionesController {
     }
 
     public void delete(ActionEvent event){
-        UsuarioDTO selectedUsuarioDTO = tvwClient.getSelectionModel().getSelectedItem();
+        SolicitudDTO selectedUsuarioDTO = tvwClient.getSelectionModel().getSelectedItem();
 
         //TODO metodo para softdelete, no va haber hard delete
     }

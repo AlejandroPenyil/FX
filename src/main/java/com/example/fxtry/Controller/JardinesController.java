@@ -1,10 +1,7 @@
 package com.example.fxtry.Controller;
 
 import com.example.fxtry.Controller.Create.JardinCreateController;
-import com.example.fxtry.Model.ImagenDTO;
-import com.example.fxtry.Model.ImagenUploadDto;
-import com.example.fxtry.Model.JardinesDTO;
-import com.example.fxtry.Model.UsuarioDTO;
+import com.example.fxtry.Model.*;
 import com.example.fxtry.Retrofit.ImplRetroFit;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -122,7 +119,7 @@ public class JardinesController {
 
         // Agregar filtros de extensión si es necesario
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
+                new FileChooser.ExtensionFilter("Images Files", "*.png", ".jpg"),
                 new FileChooser.ExtensionFilter("All Files", "*.*")
         );
 
@@ -152,6 +149,48 @@ public class JardinesController {
                     System.out.println(imagenUploadDto.getFileName());
 
                     implRetroFit.uploadImagenes(imagenUploadDto);
+
+                    // Aquí puedes guardar la cadena codificada en Base64 en algún lugar si lo necesitas
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    AlertController.showAlert("File Error", "Could not read the file: " + e.getMessage());
+                }
+            }
+        }
+    }
+
+    public void subirPresupuesto(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Busca el presupuesto");
+
+        // Agregar filtros de extensión si es necesario
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PDF Files", "*.pdf"),
+                new FileChooser.ExtensionFilter("All Files", "*.*")
+        );
+
+        Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+        JardinesDTO selectedJardin = tvwClient.getSelectionModel().getSelectedItem();
+
+        if (selectedJardin != null) {
+            // Mostrar el FileChooser y capturar el archivo seleccionado
+            File selectedFile = fileChooser.showOpenDialog(currentStage);
+            if (selectedFile != null) {
+                try {
+                    FileUpload imagenUploadDto = new FileUpload();
+                    // Leer el contenido del archivo en un arreglo de bytes
+                    byte[] fileContent = Files.readAllBytes(selectedFile.toPath());
+
+                    String encodedString = Base64.getEncoder().encodeToString(fileContent);
+                    imagenUploadDto.setContent(encodedString);
+                    imagenUploadDto.setFileName(selectedFile.getName());
+                    imagenUploadDto.setFileType(Files.probeContentType(selectedFile.toPath()));
+                    imagenUploadDto.setId(selectedJardin.getId());
+
+                    System.out.println(imagenUploadDto.getId());
+
+                    implRetroFit.uploadPresupuesto(imagenUploadDto);
 
                     // Aquí puedes guardar la cadena codificada en Base64 en algún lugar si lo necesitas
                 } catch (IOException e) {

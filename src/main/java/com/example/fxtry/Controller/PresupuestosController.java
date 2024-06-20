@@ -59,6 +59,8 @@ public class PresupuestosController {
             } catch (IOException e) {
                 e.printStackTrace();
                 showAlert("Error", "No se pudo obtener la Solicitud con ID: " + clienteId);
+            } catch (Exception e){
+
             }
             if (solicitudDTO != null) {
                 UsuarioDTO usuarioDTO = null;

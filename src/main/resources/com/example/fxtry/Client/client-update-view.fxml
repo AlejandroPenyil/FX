@@ -12,8 +12,8 @@
                     <children>
                         <VBox alignment="CENTER" prefHeight="200.0" spacing="30.0">
                             <children>
-                                <TextField fx:id="txtName" promptText="Nombre" />
-                                <TextField fx:id="txtApellidos" promptText="Apellidos" />
+                                <TextField fx:id="txtName" promptText="Nombre de usuario" />
+                                <TextField fx:id="txtTelefono" promptText="Telefono" />
                             </children>
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="200.0" spacing="30.0">

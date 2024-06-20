@@ -14,6 +14,7 @@ module com.example.fxtry {
     requires okhttp3;
     requires retrofit2.converter.gson;
     requires retrofit2;
+    requires java.desktop;
 
     opens com.example.fxtry to javafx.fxml;
     opens com.example.fxtry.Controller to javafx.fxml;

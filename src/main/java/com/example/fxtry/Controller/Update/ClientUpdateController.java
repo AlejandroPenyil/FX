@@ -19,14 +19,14 @@ public class ClientUpdateController {
     private ImplRetroFit implRetroFit;
 
     @FXML
-    private TextField txtName, txtDireccion, txtCorreo, txtTelefono, txtApellidos;
+    private TextField txtName, txtDireccion, txtCorreo, txtTelefono;
 
     @FXML
     private void initialize() {
         implRetroFit = new ImplRetroFit();
-        txtName.setText(updatable.getNombre());
+        txtName.setText(updatable.getUserName());
         txtDireccion.setText((updatable.getDireccion()));
-        txtApellidos.setText((updatable.getApellidos()));
+        txtTelefono.setText((updatable.getTelefono()));
         txtCorreo.setText((updatable.getCorreo()));
     }
 
@@ -57,7 +57,7 @@ public class ClientUpdateController {
         try {
             updatable.setNombre(txtName.getText());
             updatable.setDireccion(txtDireccion.getText());
-            updatable.setApellidos(txtApellidos.getText());
+            updatable.setApellidos(txtTelefono.getText());
             updatable.setCorreo(txtCorreo.getText());
 
             implRetroFit.putUsuario(updatable);
