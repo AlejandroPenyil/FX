@@ -49,7 +49,7 @@ public class PresupuestosCreateController {
         try {
             List<JardinesDTO> jardines = implRetroFit.getJardines();
             cmbJardin.getItems().addAll(jardines);
-            
+
             // Set a custom cell factory to display the garden location
             cmbJardin.setCellFactory(param -> new javafx.scene.control.ListCell<JardinesDTO>() {
                 @Override
@@ -62,7 +62,7 @@ public class PresupuestosCreateController {
                     }
                 }
             });
-            
+
             // Set the same converter for the display text
             cmbJardin.setConverter(new javafx.util.StringConverter<JardinesDTO>() {
                 @Override
@@ -87,7 +87,7 @@ public class PresupuestosCreateController {
         try {
             List<SolicitudDTO> solicitudes = implRetroFit.getSolicitudes();
             cmbSolicitud.getItems().addAll(solicitudes);
-            
+
             // Set a custom cell factory to display the solicitud information
             cmbSolicitud.setCellFactory(param -> new javafx.scene.control.ListCell<SolicitudDTO>() {
                 @Override
@@ -109,7 +109,7 @@ public class PresupuestosCreateController {
                     }
                 }
             });
-            
+
             // Set the same converter for the display text
             cmbSolicitud.setConverter(new javafx.util.StringConverter<SolicitudDTO>() {
                 @Override
@@ -139,25 +139,25 @@ public class PresupuestosCreateController {
 
         try {
             PresupuestosDTO presupuestoDTO = new PresupuestosDTO();
-            
+
             // Set the garden ID
             JardinesDTO selectedJardin = cmbJardin.getValue();
             if (selectedJardin != null) {
                 presupuestoDTO.setIdJardin(selectedJardin.getId());
             }
-            
+
             // Set the solicitud ID
             SolicitudDTO selectedSolicitud = cmbSolicitud.getValue();
             if (selectedSolicitud != null) {
                 presupuestoDTO.setIdSolicitud(selectedSolicitud.getId());
             }
-            
+
             // Set the location
             presupuestoDTO.setUbicacion(txtUbicacion.getText().trim());
-            
+
             // Set the rejected status
             presupuestoDTO.setRechazado(chkRechazado.isSelected());
-            
+
             // Set the current date as the send date
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
             presupuestoDTO.setFechalEnvio(LocalDateTime.now().format(formatter));
@@ -185,10 +185,6 @@ public class PresupuestosCreateController {
             return false;
         }
 
-        if (isEmpty(txtUbicacion.getText())) {
-            lblError.setText("Por favor, ingrese una ubicación.");
-            return false;
-        }
 
         // Clear any previous error
         lblError.setText("");

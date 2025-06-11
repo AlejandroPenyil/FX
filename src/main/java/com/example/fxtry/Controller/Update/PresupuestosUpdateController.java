@@ -229,10 +229,6 @@ public class PresupuestosUpdateController {
             return false;
         }
 
-        if (isEmpty(txtUbicacion.getText())) {
-            lblError.setText("Por favor, ingrese una ubicación.");
-            return false;
-        }
 
         // Clear any previous error
         lblError.setText("");

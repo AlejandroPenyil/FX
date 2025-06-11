@@ -111,6 +111,12 @@ public class ImplRetroFit {
         return response.body();
     }
 
+    public JardinesDTO createJardin(JardinesDTO jardinesDTO) throws IOException {
+        Call<JardinesDTO> call = jardinesService.createJardin(jardinesDTO);
+        Response<JardinesDTO> response = call.execute();
+        return response.body();
+    }
+
 
     // Imagenes
     public Void uploadImagenes(ImagenUploadDto imagenUploadDto) throws IOException {

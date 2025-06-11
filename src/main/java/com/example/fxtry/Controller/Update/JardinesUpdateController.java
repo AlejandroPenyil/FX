@@ -101,10 +101,6 @@ public class JardinesUpdateController {
 
     private boolean validateForm() {
         // Check required fields
-        if (isEmpty(txtUbicacion.getText())) {
-            lblError.setText("La ubicación del jardín es obligatoria.");
-            return false;
-        }
 
         if (!isEmpty(txtSuperficie.getText())) {
             try {

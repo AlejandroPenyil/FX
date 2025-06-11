@@ -51,7 +51,7 @@ public class ImagenesCreateController {
     @FXML
     private void initialize() {
         implRetroFit = new ImplRetroFit();
-        
+
         // Initialize combo boxes
         try {
             // Load jardines
@@ -59,7 +59,7 @@ public class ImagenesCreateController {
             for (var jardin : jardines) {
                 cmbJardin.getItems().add(jardin.getId() + " - " + jardin.getLocalizacion());
             }
-            
+
             // Load usuarios
             var usuarios = implRetroFit.getUsuarios();
             for (var usuario : usuarios) {
@@ -83,10 +83,10 @@ public class ImagenesCreateController {
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp")
         );
-        
+
         Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
         selectedImageFile = fileChooser.showOpenDialog(stage);
-        
+
         if (selectedImageFile != null) {
             lblSelectedFile.setText("Archivo seleccionado: " + selectedImageFile.getName());
         }
@@ -103,29 +103,29 @@ public class ImagenesCreateController {
             ImagenDTO imagenDTO = new ImagenDTO();
             imagenDTO.setFecha(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME));
             imagenDTO.setUbicacion(txtUbicacion.getText().trim());
-            
+
             // Extract IDs from combo boxes
             String jardinSelected = cmbJardin.getValue();
             String usuarioSelected = cmbUsuario.getValue();
-            
+
             int jardinId = Integer.parseInt(jardinSelected.split(" - ")[0]);
             int usuarioId = Integer.parseInt(usuarioSelected.split(" - ")[0]);
-            
+
             imagenDTO.setIdJardin(jardinId);
             imagenDTO.setIdUsuario(usuarioId);
             imagenDTO.setComentario(txtComentario.getText().trim());
-            
+
             // Read and encode the image file
             byte[] fileContent = Files.readAllBytes(selectedImageFile.toPath());
             String base64Content = Base64.getEncoder().encodeToString(fileContent);
-            
+
             // Create ImagenUploadDto
             ImagenUploadDto uploadDto = new ImagenUploadDto();
             uploadDto.setFileName(selectedImageFile.getName());
             uploadDto.setFileType(getFileExtension(selectedImageFile.getName()));
             uploadDto.setContent(base64Content);
             uploadDto.setImagenDTO(imagenDTO);
-            
+
             // Upload the image
             implRetroFit.uploadImagenes(uploadDto);
 
@@ -142,12 +142,11 @@ public class ImagenesCreateController {
 
     private boolean validateForm() {
         // Check required fields
-        if (isEmpty(txtUbicacion.getText()) || 
-            cmbJardin.getValue() == null || 
+        if (cmbJardin.getValue() == null || 
             cmbUsuario.getValue() == null || 
             selectedImageFile == null) {
-            
-            lblError.setText("Por favor, complete todos los campos obligatorios y seleccione una imagen.");
+
+            lblError.setText("Por favor, seleccione un jardín, un usuario y una imagen.");
             return false;
         }
 
@@ -159,7 +158,7 @@ public class ImagenesCreateController {
     private boolean isEmpty(String text) {
         return text == null || text.trim().isEmpty();
     }
-    
+
     private String getFileExtension(String fileName) {
         int dotIndex = fileName.lastIndexOf('.');
         if (dotIndex > 0 && dotIndex < fileName.length() - 1) {

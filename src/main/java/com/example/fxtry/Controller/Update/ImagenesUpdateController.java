@@ -178,11 +178,10 @@ public class ImagenesUpdateController {
 
     private boolean validateForm() {
         // Check required fields
-        if (isEmpty(txtUbicacion.getText()) || 
-            cmbJardin.getValue() == null || 
+        if (cmbJardin.getValue() == null || 
             cmbUsuario.getValue() == null) {
 
-            lblError.setText("Por favor, complete todos los campos obligatorios.");
+            lblError.setText("Por favor, seleccione un jardín y un usuario.");
             return false;
         }
 

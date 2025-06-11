@@ -83,8 +83,10 @@ public class JardinesController {
                 // Get controller and set garden data
                 JardinCardController cardController = loader.getController();
                 // This line was causing issues because JardinesController is not the controller for the garden view
-                // cardController.setParentController(this);
-                cardController.setJardin(jardin);
+                if (cardController != null) {
+                    cardController.setParentController(this);
+                    cardController.setJardin(jardin);
+                }
 
                 // Add card to container
                 jardinesContainer.getChildren().add(jardinCard);

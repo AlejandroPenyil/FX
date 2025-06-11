@@ -86,8 +86,10 @@ public class JardinesCardView {
 
                 // Get controller and set garden data
                 JardinCardController cardController = loader.getController();
-                cardController.setParentController(this);
-                cardController.setJardin(jardin);
+                if (cardController != null) {
+                    cardController.setParentController(this);
+                    cardController.setJardin(jardin);
+                }
 
                 // Add card to container
                 jardinesContainer.getChildren().add(jardinCard);

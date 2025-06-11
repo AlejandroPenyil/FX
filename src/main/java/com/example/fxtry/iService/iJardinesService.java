@@ -3,7 +3,9 @@ package com.example.fxtry.iService;
 import com.example.fxtry.Model.JardinesDTO;
 import javafx.fxml.FXML;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 import java.util.List;
@@ -14,4 +16,7 @@ public interface iJardinesService {
 
     @GET("jardines/{id}")
     Call<JardinesDTO> getJardine(@Path("id") Integer id);
+
+    @POST("jardines")
+    Call<JardinesDTO> createJardin(@Body JardinesDTO jardinesDTO);
 }

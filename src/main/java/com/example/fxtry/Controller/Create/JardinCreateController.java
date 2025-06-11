@@ -90,7 +90,11 @@ public class JardinCreateController {
             JardinesDTO jardinDTO = new JardinesDTO();
 
             // Set location (using the name field as location)
-            jardinDTO.setLocalizacion(txtUbicacion.getText().trim());
+            if (isEmpty(txtNombre.getText())) {
+                jardinDTO.setLocalizacion(txtUbicacion.getText().trim());
+            } else {
+                jardinDTO.setLocalizacion(txtNombre.getText().trim());
+            }
 
             // Set size (using the surface area field as size)
             if (!isEmpty(txtSuperficie.getText())) {
@@ -104,7 +108,7 @@ public class JardinCreateController {
             }
 
             // Save the garden
-            // implRetroFit.createJardin(jardinDTO); // This method needs to be implemented
+            implRetroFit.createJardin(jardinDTO);
 
             // Show success message
             AlertController.showInformation("Jardín Creado", "El jardín ha sido creado correctamente.");
@@ -119,11 +123,6 @@ public class JardinCreateController {
 
     private boolean validateForm() {
         // Check required fields
-        if (isEmpty(txtUbicacion.getText())) {
-            lblError.setText("La ubicación del jardín es obligatoria.");
-            return false;
-        }
-
         if (cmbPropietario.getSelectionModel().getSelectedIndex() < 0) {
             lblError.setText("Debe seleccionar un propietario.");
             return false;
