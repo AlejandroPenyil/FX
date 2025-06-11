@@ -1,7 +1,9 @@
 package com.example.fxtry.Controller;
 
 import com.example.fxtry.Controller.Create.ClientCreateController;
+import com.example.fxtry.Controller.Create.ImagenesCreateController;
 import com.example.fxtry.Controller.Update.ClientUpdateController;
+import com.example.fxtry.Controller.Update.ImagenesUpdateController;
 import com.example.fxtry.Model.ImagenDTO;
 import com.example.fxtry.Model.JardinesDTO;
 import com.example.fxtry.Model.UsuarioDTO;
@@ -196,11 +198,11 @@ public class ImagenesController {
 
     public void goToCreate(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fxtry/Client/client-create-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fxtry/Imagenes/imagenes-create-view.fxml"));
             Parent secondSceneParent = loader.load();
             Scene secondScene = new Scene(secondSceneParent);
             // Acceso al controlador de la segunda escena, si es necesario
-            ClientCreateController secondController = loader.getController();
+            ImagenesCreateController secondController = loader.getController();
 
             // Acceso al stage actual
             MenuItem menuItem = (MenuItem) event.getSource();
@@ -226,11 +228,11 @@ public class ImagenesController {
 
             updatable = selectedImagen;
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fxtry/Client/client-update-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fxtry/Imagenes/imagenes-update-view.fxml"));
             Parent secondSceneParent = loader.load();
             Scene secondScene = new Scene(secondSceneParent);
             // Acceso al controlador de la segunda escena, si es necesario
-            ClientUpdateController secondController = loader.getController();
+            ImagenesUpdateController secondController = loader.getController();
 
             // Acceso al stage actual
             MenuItem menuItem = (MenuItem) event.getSource();
