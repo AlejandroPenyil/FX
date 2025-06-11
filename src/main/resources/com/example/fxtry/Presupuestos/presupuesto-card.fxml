@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox fx:id="presupuestoCard" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="100.0" spacing="15.0" styleClass="document-card" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxtry.Controller.PresupuestoCardController">
+   <children>
+      <VBox alignment="CENTER_LEFT" spacing="5.0" HBox.hgrow="ALWAYS">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <children>
+                  <Label fx:id="presupuestoId" styleClass="document-category" text="ID" />
+                  <Label fx:id="presupuestoJardin" styleClass="document-title" text="Jardín">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
+               <children>
+                  <Label fx:id="presupuestoSolicitud" styleClass="document-info" text="Solicitud" />
+                  <Label fx:id="presupuestoRechazado" styleClass="document-info" text="Rechazado" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
+               <children>
+                  <Label fx:id="presupuestoUbicacion" styleClass="document-info" text="Ubicación" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+   </padding>
+</HBox>

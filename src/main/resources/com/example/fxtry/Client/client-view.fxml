@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxtry.Controller.ClientController">
    <children>
@@ -25,20 +27,35 @@
             </MenuBar>
          </top>
          <center>
-            <TableView fx:id="tvwClient" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-              <columns>
-                  <TableColumn fx:id="tcId" prefWidth="75.0" text="Id" />
-                <TableColumn fx:id="tcName" prefWidth="125.0" text="Nombre" />
-                <TableColumn fx:id="tcApellido" prefWidth="125.0" text="Apellido" />
-                  <TableColumn fx:id="tcCorreo" prefWidth="125.0" text="Correo" />
-                  <TableColumn fx:id="tcPassword" prefWidth="125.0" text="Contraseña" />
-                  <TableColumn fx:id="tcDni" prefWidth="75.0" text="Dni" />
-                  <TableColumn fx:id="tcTelefono" prefWidth="75.0" text="Telefono" />
-                  <TableColumn fx:id="tcDireccion" prefWidth="75.0" text="Direccion" />
-                  <TableColumn fx:id="tcRol" prefWidth="75.0" text="Rol" />
-                  <TableColumn fx:id="tcUsuario" prefWidth="75.0" text="Usuario" />
-              </columns>
-            </TableView>
+            <VBox spacing="10.0" BorderPane.alignment="CENTER">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="10.0">
+                     <children>
+                        <Label text="Buscar:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="searchField" promptText="Buscar cliente..." HBox.hgrow="ALWAYS" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+                     <content>
+                        <VBox fx:id="clientsContainer" spacing="10.0">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
          </center>
          <bottom>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" BorderPane.alignment="CENTER">

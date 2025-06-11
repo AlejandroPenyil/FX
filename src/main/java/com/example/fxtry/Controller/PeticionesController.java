@@ -1,7 +1,9 @@
 package com.example.fxtry.Controller;
 
 import com.example.fxtry.Controller.Create.ClientCreateController;
+import com.example.fxtry.Controller.Create.PeticionesCreateController;
 import com.example.fxtry.Controller.Update.ClientUpdateController;
+import com.example.fxtry.Controller.Update.PeticionesUpdateController;
 import com.example.fxtry.Model.JardinesDTO;
 import com.example.fxtry.Model.SolicitudDTO;
 import com.example.fxtry.Model.UsuarioDTO;
@@ -16,62 +18,142 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PeticionesController {
     public static SolicitudDTO updatable = new SolicitudDTO();
     ImplRetroFit implRetroFit;
-    @FXML
-    private TableView<SolicitudDTO> tvwClient;
 
     @FXML
-    private TableColumn<SolicitudDTO, String> tcName, tcFecha, tcAtendida, tcDescripcion;
+    private VBox peticionesContainer;
 
     @FXML
-    private void initialize(){
+    private TextField searchField;
+
+    // Track the currently selected peticion
+    private SolicitudDTO selectedPeticion = null;
+
+    // Track all peticion cards for selection management
+    private List<Parent> peticionCards = new ArrayList<>();
+
+    @FXML
+    private void initialize() {
         implRetroFit = new ImplRetroFit();
-        tcFecha.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFechaSolicitud()));
-        tcDescripcion.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescripcion()));
 
-        tcAtendida.setCellValueFactory(cellData -> {
-            String clienteId = String.valueOf(cellData.getValue().isAtendida());
-            if(clienteId.equalsIgnoreCase("true")){
-                return new SimpleStringProperty("si");
-            } else {
-                return new SimpleStringProperty("No");
-            }
-        });
+        // Add search functionality if searchField exists
+        if (searchField != null) {
+            searchField.textProperty().addListener((obs, oldVal, newVal) -> {
+                try {
+                    applyFilter(newVal);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
 
-        tcName.setCellValueFactory(cellData -> {
-            String clienteId = String.valueOf(cellData.getValue().getIdUsuario());
-            UsuarioDTO usuarioDTO = new UsuarioDTO();
-            try {
-                usuarioDTO = implRetroFit.getUsuario(Integer.parseInt(clienteId));
-            } catch (IOException e) {
-                e.printStackTrace();
-                AlertController.showAlert("Error", "No se pudo obtener el usuario con ID: " + clienteId);
-            }
-            if (usuarioDTO != null) {
-                return new SimpleStringProperty(usuarioDTO.getNombre() + " " + usuarioDTO.getApellidos());
-            } else {
-                return new SimpleStringProperty("Desconocido");
-            }
-        });
-
+        // Load and display peticiones
         try {
-            List<SolicitudDTO> jardinDTOList = implRetroFit.getSolicitudes();
-
-            for (SolicitudDTO jardinDTO : jardinDTOList) {
-                tvwClient.getItems().add(jardinDTO);
-            }
-
-            tvwClient.refresh();
+            List<SolicitudDTO> peticionesList = implRetroFit.getSolicitudes();
+            displayPeticiones(peticionesList);
         } catch (IOException e) {
             e.printStackTrace();
-            AlertController.showAlert("Error", "No se pudo obtener la lista de jardines");
+            AlertController.showAlert("Error", "No se pudo obtener la lista de peticiones");
+        }
+    }
+
+    // Method to display peticiones in the card view
+    private void displayPeticiones(List<SolicitudDTO> peticiones) {
+        // Clear existing peticiones
+        peticionesContainer.getChildren().clear();
+
+        // Clear tracking list
+        peticionCards.clear();
+
+        // Reset selected peticion
+        selectedPeticion = null;
+
+        // Add peticion cards
+        for (SolicitudDTO peticion : peticiones) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fxtry/Peticiones/peticion-card.fxml"));
+                Parent peticionCard = loader.load();
+
+                // Get controller and set peticion data
+                PeticionCardController cardController = loader.getController();
+                cardController.setParentController(this);
+                cardController.setPeticion(peticion);
+
+                // Add card to container
+                peticionesContainer.getChildren().add(peticionCard);
+
+                // Add to tracking list for selection management
+                peticionCards.add(peticionCard);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // Method to filter peticiones based on search text
+    private void applyFilter(String searchText) throws IOException {
+        if (searchText == null || searchText.isEmpty()) {
+            // If search is empty, show all peticiones
+            List<SolicitudDTO> peticionesList = implRetroFit.getSolicitudes();
+            displayPeticiones(peticionesList);
+            return;
+        }
+
+        // Convert search text to lowercase for case-insensitive search
+        searchText = searchText.toLowerCase();
+
+        // Get all peticiones
+        List<SolicitudDTO> allPeticiones = implRetroFit.getSolicitudes();
+        List<SolicitudDTO> filteredPeticiones = new ArrayList<>();
+
+        // Filter peticiones based on search text
+        for (SolicitudDTO peticion : allPeticiones) {
+            // Get client name for this peticion
+            UsuarioDTO cliente = null;
+            try {
+                cliente = implRetroFit.getUsuario(peticion.getIdUsuario());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            String clienteName = "Desconocido";
+            if (cliente != null) {
+                clienteName = cliente.getNombre() + " " + cliente.getApellidos();
+            }
+
+            if (clienteName.toLowerCase().contains(searchText) ||
+                peticion.getFechaSolicitud().toString().toLowerCase().contains(searchText) ||
+                peticion.getDescripcion().toLowerCase().contains(searchText)) {
+                filteredPeticiones.add(peticion);
+            }
+        }
+
+        // Display filtered peticiones
+        displayPeticiones(filteredPeticiones);
+    }
+
+    // Method to set the selected peticion (will be called from PeticionCardController)
+    public void setSelectedPeticion(SolicitudDTO peticion, Parent card) {
+        this.selectedPeticion = peticion;
+
+        // Clear selection from all cards
+        for (Parent peticionCard : peticionCards) {
+            peticionCard.getStyleClass().remove("document-card-selected");
+        }
+
+        // Add selection to the clicked card
+        if (card != null) {
+            card.getStyleClass().add("document-card-selected");
         }
     }
 
@@ -99,11 +181,11 @@ public class PeticionesController {
 
     public void goToCreate(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fxtry/Client/client-create-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fxtry/Peticiones/peticiones-create-view.fxml"));
             Parent secondSceneParent = loader.load();
             Scene secondScene = new Scene(secondSceneParent);
             // Acceso al controlador de la segunda escena, si es necesario
-            ClientCreateController secondController = loader.getController();
+            PeticionesCreateController secondController = loader.getController();
 
             // Acceso al stage actual
             MenuItem menuItem = (MenuItem) event.getSource();
@@ -122,15 +204,18 @@ public class PeticionesController {
 
     public void goToUpdate(ActionEvent event) {
         try {
-            SolicitudDTO selectedUsuarioDTO = tvwClient.getSelectionModel().getSelectedItem();
+            if (selectedPeticion == null) {
+                AlertController.showAlert("Advertencia", "Por favor, seleccione una petición primero");
+                return;
+            }
 
-            updatable= selectedUsuarioDTO;
+            updatable = selectedPeticion;
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fxtry/Client/client-update-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fxtry/Peticiones/peticiones-update-view.fxml"));
             Parent secondSceneParent = loader.load();
             Scene secondScene = new Scene(secondSceneParent);
             // Acceso al controlador de la segunda escena, si es necesario
-            ClientUpdateController secondController = loader.getController();
+            PeticionesUpdateController secondController = loader.getController();
 
             // Acceso al stage actual
             MenuItem menuItem = (MenuItem) event.getSource();
@@ -149,7 +234,10 @@ public class PeticionesController {
     }
 
     public void delete(ActionEvent event){
-        SolicitudDTO selectedUsuarioDTO = tvwClient.getSelectionModel().getSelectedItem();
+        if (selectedPeticion == null) {
+            AlertController.showAlert("Advertencia", "Por favor, seleccione una petición primero");
+            return;
+        }
 
         //TODO metodo para softdelete, no va haber hard delete
     }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox fx:id="clientCard" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="100.0" spacing="15.0" styleClass="document-card" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxtry.Controller.ClientCardController">
+   <children>
+      <VBox alignment="CENTER_LEFT" spacing="5.0" HBox.hgrow="ALWAYS">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <children>
+                  <Label fx:id="clientId" styleClass="document-category" text="ID" />
+                  <Label fx:id="clientName" styleClass="document-title" text="Nombre Apellido">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
+               <children>
+                  <Label fx:id="clientEmail" styleClass="document-info" text="Correo" />
+                  <Label fx:id="clientPhone" styleClass="document-info" text="Teléfono" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
+               <children>
+                  <Label fx:id="clientDni" styleClass="document-info" text="DNI" />
+                  <Label fx:id="clientAddress" styleClass="document-info" text="Dirección" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER_RIGHT" spacing="5.0">
+         <children>
+            <Label fx:id="clientRole" styleClass="document-category" text="Rol" />
+            <Label fx:id="clientUsername" styleClass="document-user" text="Usuario" />
+         </children>
+      </VBox>
+   </children>
+   <padding>
+      <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+   </padding>
+</HBox>

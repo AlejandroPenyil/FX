@@ -4,36 +4,31 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxtry.Controller.Update.ClientUpdateController">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxtry.Controller.Update.PeticionesUpdateController">
     <children>
         <BorderPane layoutX="200.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <center>
-                <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="30.0" BorderPane.alignment="CENTER">
+                <VBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="30.0" BorderPane.alignment="CENTER">
                     <children>
-                        <VBox alignment="CENTER" prefHeight="200.0" spacing="30.0">
-                            <children>
-                                <TextField fx:id="txtName" promptText="Nombre" />
-                                <TextField promptText="Apellidos" />
-                            </children>
-                        </VBox>
-                        <VBox alignment="CENTER" prefHeight="200.0" spacing="30.0">
-                            <children>
-                                <TextField promptText="Correo" />
-                                <TextField fx:id="txtPassword" promptText="Contraseña" />
-                            </children>
-                        </VBox>
+                        <TextField fx:id="txtIdUsuario" promptText="ID de Usuario" />
+                        <TextArea fx:id="txtDescripcion" prefHeight="200.0" prefWidth="200.0" promptText="Descripción de la solicitud" />
+                        <CheckBox fx:id="chkAtendida" text="Solicitud Atendida" />
+                        <Label fx:id="lblError" style="-fx-text-fill: red;" />
                     </children>
-                </HBox>
+                    <padding>
+                        <Insets left="50.0" right="50.0" />
+                    </padding>
+                </VBox>
             </center>
             <bottom>
                 <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Button mnemonicParsing="false" text="Crear">
+                        <Button mnemonicParsing="false" onAction="#update" text="Actualizar">
                             <HBox.margin>
                                 <Insets bottom="15.0" top="15.0" />
                             </HBox.margin>
                         </Button>
-                        <Button defaultButton="true" mnemonicParsing="false" onAction="#goToClient" text="Cancelar">
+                        <Button defaultButton="true" mnemonicParsing="false" onAction="#goToPeticiones" text="Cancelar">
                             <HBox.margin>
                                 <Insets bottom="15.0" right="15.0" top="15.0" />
                             </HBox.margin>

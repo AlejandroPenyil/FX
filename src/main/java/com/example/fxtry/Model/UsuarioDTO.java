@@ -1,8 +1,10 @@
 package com.example.fxtry.Model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class UsuarioDTO {
     private Integer id;
     private String nombre;

@@ -15,12 +15,13 @@ module com.example.fxtry {
     requires retrofit2.converter.gson;
     requires retrofit2;
     requires java.desktop;
+    requires com.google.gson;
 
     opens com.example.fxtry to javafx.fxml;
     opens com.example.fxtry.Controller to javafx.fxml;
     opens com.example.fxtry.Controller.Create to javafx.fxml;
     opens com.example.fxtry.Controller.Update to javafx.fxml;
-    opens com.example.fxtry.Model;
+    opens com.example.fxtry.Model to com.google.gson;
 
     exports com.example.fxtry;
     exports com.example.fxtry.Controller;

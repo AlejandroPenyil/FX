@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxtry.Controller.DocumentosController">
+   <children>
+      <BorderPane layoutX="152.0" layoutY="67.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <MenuBar cache="true" useSystemMenuBar="true" BorderPane.alignment="CENTER">
+              <menus>
+                <Menu mnemonicParsing="false" text="Opciones">
+                  <items>
+                        <MenuItem mnemonicParsing="false" onAction="#goToCreate" text="Subir documento" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToUpdate" text="Actualizar" />
+                        <MenuItem mnemonicParsing="false" onAction="#delete" text="Eliminar" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Ayuda">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#goToHelp" text="Abrir ayuda" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </top>
+         <center>
+            <VBox spacing="10.0" BorderPane.alignment="CENTER">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="10.0">
+                     <children>
+                        <Label text="Filtrar por:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="filterCategory" promptText="Categoría" />
+                        <ComboBox fx:id="filterType" promptText="Tipo" />
+                        <TextField fx:id="searchField" promptText="Buscar documento..." HBox.hgrow="ALWAYS" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+                     <content>
+                        <VBox fx:id="documentsContainer" spacing="10.0">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+         </center>
+         <bottom>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0" spacing="15.0">
+                     <children>
+                        <Button fx:id="btnDescargar" mnemonicParsing="false" onAction="#descargarDocumento" text="Descargar" />
+                        <Button fx:id="btnPrevisualizar" mnemonicParsing="false" onAction="#previsualizarDocumento" text="Previsualizar" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToMain" text="Volver" textAlignment="CENTER" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </bottom>
+      </BorderPane>
+   </children>
+</AnchorPane>

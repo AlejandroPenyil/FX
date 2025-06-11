@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxtry.Controller.JardinesController">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxtry.Controller.JardinesCardView">
     <children>
         <BorderPane layoutX="152.0" layoutY="67.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <top>
@@ -25,13 +27,35 @@
                 </MenuBar>
             </top>
             <center>
-                <TableView fx:id="tvwClient" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                    <columns>
-                        <TableColumn fx:id="tcLocalizacion" prefWidth="125.0" text="Localización" />
-                        <TableColumn fx:id="tcTamaño" prefWidth="125.0" text="Tamaño" />
-                        <TableColumn fx:id="tcCliente" prefWidth="125.0" text="Cliente" />
-                    </columns>
-                </TableView>
+                <VBox spacing="10.0" BorderPane.alignment="CENTER">
+                   <padding>
+                      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                   </padding>
+                   <children>
+                      <HBox alignment="CENTER_LEFT" spacing="10.0">
+                         <children>
+                            <Label text="Buscar:">
+                               <font>
+                                  <Font name="System Bold" size="14.0" />
+                               </font>
+                            </Label>
+                            <TextField fx:id="searchField" promptText="Buscar jardín..." HBox.hgrow="ALWAYS" />
+                         </children>
+                         <VBox.margin>
+                            <Insets bottom="10.0" />
+                         </VBox.margin>
+                      </HBox>
+                      <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+                         <content>
+                            <VBox fx:id="jardinesContainer" spacing="10.0">
+                               <padding>
+                                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                               </padding>
+                            </VBox>
+                         </content>
+                      </ScrollPane>
+                   </children>
+                </VBox>
             </center>
             <bottom>
                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" BorderPane.alignment="CENTER">

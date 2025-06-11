@@ -1,32 +1,608 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxtry.Controller.MainController">
    <children>
-      <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <HBox fx:id="mainPane" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="300.0" prefWidth="600.0" spacing="30.0">
+      <BorderPane prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <!-- Header -->
+         <top>
+            <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-background-color: white; -fx-border-color: -fx-light-grey-color; -fx-border-width: 0 0 1 0;">
+               <padding>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+               </padding>
                <children>
-                  <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="200.0" spacing="30.0">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/logo.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="Terranaturale" textFill="#3ab336">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                      <children>
-                        <Button fx:id="clientesButton" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToClient" text="Clientes" textAlignment="CENTER" wrapText="true" />
-                        <Button fx:id="presupuestosButton" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToPresupuestos" text="Presupuestos" textAlignment="CENTER" wrapText="true" />
-                        <Button fx:id="jardinesButton" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToJardines" text="Jardines" textAlignment="CENTER" wrapText="true" />
+                        <Button mnemonicParsing="false" onAction="#goToLogin" text="Cerrar Sesión" />
                      </children>
-                  </VBox>
-                  <VBox alignment="CENTER" prefWidth="200.0" spacing="30.0">
-                     <children>
-                        <Button fx:id="facturasButton" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToFacturas" text="Facturas" textAlignment="CENTER" wrapText="true" />
-                        <Button fx:id="imagenesButton" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToImagenes" text="Imagenes" textAlignment="CENTER" wrapText="true" />
-                        <Button fx:id="peticionesButton" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToPeticiones" text="Peticiones" textAlignment="CENTER" wrapText="true" />
-                     </children>
-                  </VBox>
+                  </HBox>
                </children>
             </HBox>
-            <Button fx:id="cerrarSesionButton" alignment="CENTER" contentDisplay="CENTER" maxWidth="300.0" mnemonicParsing="false" onAction="#goToLogin" text="Cerrar sesión" textAlignment="CENTER" />
-         </children>
-      </VBox>
+         </top>
+
+         <!-- Main Content -->
+         <center>
+            <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER" style="-fx-tab-min-width: 120px; -fx-tab-min-height: 40px;">
+              <tabs>
+                <!-- Dashboard Tab -->
+                <Tab text="Dashboard">
+                  <content>
+                    <ScrollPane fitToWidth="true" pannable="true">
+                      <content>
+                        <VBox spacing="20.0">
+                          <padding>
+                            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                          </padding>
+                          <children>
+                            <!-- Welcome Section -->
+                            <VBox styleClass="card">
+                              <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                              </padding>
+                              <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido a Terranaturale">
+                                  <font>
+                                    <Font name="System Bold" size="24.0" />
+                                  </font>
+                                </Text>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sistema de gestión para empresas de jardinería y paisajismo">
+                                  <font>
+                                    <Font size="14.0" />
+                                  </font>
+                                </Text>
+                              </children>
+                            </VBox>
+
+                            <!-- Stats Cards -->
+                            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Resumen">
+                              <font>
+                                <Font name="System Bold" size="18.0" />
+                              </font>
+                              <VBox.margin>
+                                <Insets top="10.0" />
+                              </VBox.margin>
+                            </Text>
+
+                            <FlowPane hgap="20.0" vgap="20.0">
+                              <!-- Clients Card -->
+                              <VBox prefHeight="120.0" prefWidth="220.0" styleClass="dashboard-card">
+                                <children>
+                                  <Label styleClass="dashboard-card-title" text="Clientes" />
+                                  <Label fx:id="clientesCountLabel" styleClass="dashboard-card-value" text="24" />
+                                  <Button mnemonicParsing="false" onAction="#goToClient" text="Ver detalles">
+                                    <VBox.margin>
+                                      <Insets top="10.0" />
+                                    </VBox.margin>
+                                  </Button>
+                                </children>
+                                <padding>
+                                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                </padding>
+                              </VBox>
+
+                              <!-- Gardens Card -->
+                              <VBox prefHeight="120.0" prefWidth="220.0" styleClass="dashboard-card">
+                                <children>
+                                  <Label styleClass="dashboard-card-title" text="Jardines" />
+                                  <Label fx:id="jardinesCountLabel" styleClass="dashboard-card-value" text="36" />
+                                  <Button mnemonicParsing="false" onAction="#goToJardines" text="Ver detalles">
+                                    <VBox.margin>
+                                      <Insets top="10.0" />
+                                    </VBox.margin>
+                                  </Button>
+                                </children>
+                                <padding>
+                                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                </padding>
+                              </VBox>
+
+                              <!-- Requests Card -->
+                              <VBox prefHeight="120.0" prefWidth="220.0" styleClass="dashboard-card">
+                                <children>
+                                  <Label styleClass="dashboard-card-title" text="Solicitudes" />
+                                  <Label fx:id="solicitudesCountLabel" styleClass="dashboard-card-value" text="12" />
+                                  <Button mnemonicParsing="false" onAction="#goToPeticiones" text="Ver detalles">
+                                    <VBox.margin>
+                                      <Insets top="10.0" />
+                                    </VBox.margin>
+                                  </Button>
+                                </children>
+                                <padding>
+                                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                </padding>
+                              </VBox>
+
+                              <!-- Budgets Card -->
+                              <VBox prefHeight="120.0" prefWidth="220.0" styleClass="dashboard-card">
+                                <children>
+                                  <Label styleClass="dashboard-card-title" text="Presupuestos" />
+                                  <Label fx:id="presupuestosCountLabel" styleClass="dashboard-card-value" text="8" />
+                                  <Button mnemonicParsing="false" onAction="#goToPresupuestos" text="Ver detalles">
+                                    <VBox.margin>
+                                      <Insets top="10.0" />
+                                    </VBox.margin>
+                                  </Button>
+                                </children>
+                                <padding>
+                                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                </padding>
+                              </VBox>
+                            </FlowPane>
+
+                          </children>
+                        </VBox>
+                      </content>
+                    </ScrollPane>
+                  </content>
+                </Tab>
+
+                <!-- Users Tab -->
+                <Tab fx:id="tabUsuarios" text="Usuarios">
+                  <content>
+                    <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="556.0" prefWidth="1000.0">
+                      <children>
+                        <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <padding>
+                            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                          </padding>
+                          <children>
+                            <HBox alignment="CENTER_LEFT" spacing="20.0">
+                              <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gestión de Usuarios">
+                                  <font>
+                                    <Font name="System Bold" size="18.0" />
+                                  </font>
+                                </Text>
+                                <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                                  <children>
+                                    <TextField promptText="Buscar usuario...">
+                                      <HBox.margin>
+                                        <Insets right="10.0" />
+                                      </HBox.margin>
+                                    </TextField>
+                                    <Button mnemonicParsing="false" onAction="#goToUsuarios" text="Gestionar Usuarios" />
+                                  </children>
+                                </HBox>
+                              </children>
+                            </HBox>
+
+                            <TableView fx:id="usuariosTableView" VBox.vgrow="ALWAYS">
+                              <columns>
+                                <TableColumn fx:id="idColumn" prefWidth="50.0" text="Id" />
+                                <TableColumn fx:id="userNameColumn" prefWidth="120.0" text="Nombre de Usuario" />
+                                <TableColumn fx:id="nombreColumn" prefWidth="100.0" text="Nombre" />
+                                <TableColumn fx:id="apellidosColumn" prefWidth="120.0" text="Apellidos" />
+                                <TableColumn fx:id="correoColumn" prefWidth="150.0" text="Correo" />
+                                <TableColumn fx:id="dniColumn" prefWidth="100.0" text="DNI" />
+                                <TableColumn fx:id="telefonoColumn" prefWidth="120.0" text="Teléfono" />
+                                <TableColumn fx:id="rolColumn" prefWidth="100.0" text="Rol" />
+                              </columns>
+                            </TableView>
+                          </children>
+                        </VBox>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+
+                <!-- Gardens Tab -->
+                <Tab fx:id="tabJardines" text="Jardines">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                      <children>
+                        <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <padding>
+                            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                          </padding>
+                          <children>
+                            <HBox alignment="CENTER_LEFT" spacing="20.0">
+                              <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gestión de Jardines">
+                                  <font>
+                                    <Font name="System Bold" size="18.0" />
+                                  </font>
+                                </Text>
+                                <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                                  <children>
+                                    <TextField promptText="Buscar jardín...">
+                                      <HBox.margin>
+                                        <Insets right="10.0" />
+                                      </HBox.margin>
+                                    </TextField>
+                                    <Button mnemonicParsing="false" onAction="#goToJardines" text="Gestionar Jardines" />
+                                  </children>
+                                </HBox>
+                              </children>
+                            </HBox>
+
+                            <!-- Map removed as requested -->
+                          </children>
+                        </VBox>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+
+                <!-- Images Tab -->
+                <Tab fx:id="tabImagenes" text="Imágenes">
+                  <content>
+                    <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="556.0" prefWidth="1000.0">
+                      <children>
+                        <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <padding>
+                            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                          </padding>
+                          <children>
+                            <HBox alignment="CENTER_LEFT" spacing="20.0">
+                              <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Galería de Imágenes">
+                                  <font>
+                                    <Font name="System Bold" size="18.0" />
+                                  </font>
+                                </Text>
+                                <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                                  <children>
+                                    <TextField promptText="Buscar imagen...">
+                                      <HBox.margin>
+                                        <Insets right="10.0" />
+                                      </HBox.margin>
+                                    </TextField>
+                                    <Button mnemonicParsing="false" onAction="#goToImagenes" text="Gestionar Imágenes" />
+                                  </children>
+                                </HBox>
+                              </children>
+                            </HBox>
+
+                            <FlowPane hgap="15.0" vgap="15.0" VBox.vgrow="ALWAYS">
+                              <!-- Sample image placeholders -->
+                              <VBox styleClass="card" prefHeight="200.0" prefWidth="200.0">
+                                <children>
+                                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                      <Image url="@../../../images/siluetaJardinero.png" />
+                                    </image>
+                                  </ImageView>
+                                  <Label text="Jardín Cliente 1" />
+                                </children>
+                              </VBox>
+
+                              <VBox styleClass="card" prefHeight="200.0" prefWidth="200.0">
+                                <children>
+                                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                      <Image url="@../../../images/siluetaJardinero.png" />
+                                    </image>
+                                  </ImageView>
+                                  <Label text="Jardín Cliente 2" />
+                                </children>
+                              </VBox>
+
+                              <VBox styleClass="card" prefHeight="200.0" prefWidth="200.0">
+                                <children>
+                                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                      <Image url="@../../../images/siluetaJardinero.png" />
+                                    </image>
+                                  </ImageView>
+                                  <Label text="Jardín Cliente 3" />
+                                </children>
+                              </VBox>
+                            </FlowPane>
+                          </children>
+                        </VBox>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+
+                <!-- Invoices Tab -->
+                <Tab fx:id="tabFacturas" text="Facturas">
+                  <content>
+                    <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="556.0" prefWidth="1000.0">
+                      <children>
+                        <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <padding>
+                            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                          </padding>
+                          <children>
+                            <HBox alignment="CENTER_LEFT" spacing="20.0">
+                              <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gestión de Facturas">
+                                  <font>
+                                    <Font name="System Bold" size="18.0" />
+                                  </font>
+                                </Text>
+                                <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                                  <children>
+                                    <TextField promptText="Buscar factura...">
+                                      <HBox.margin>
+                                        <Insets right="10.0" />
+                                      </HBox.margin>
+                                    </TextField>
+                                    <Button mnemonicParsing="false" onAction="#goToFacturas" text="Gestionar Facturas" />
+                                  </children>
+                                </HBox>
+                              </children>
+                            </HBox>
+
+                            <TableView VBox.vgrow="ALWAYS">
+                              <columns>
+                                <TableColumn prefWidth="80.0" text="Nº Factura" />
+                                <TableColumn prefWidth="150.0" text="Cliente" />
+                                <TableColumn prefWidth="120.0" text="Fecha" />
+                                <TableColumn prefWidth="120.0" text="Importe" />
+                                <TableColumn prefWidth="120.0" text="Estado" />
+                                <TableColumn prefWidth="120.0" text="Acciones" />
+                              </columns>
+                            </TableView>
+                          </children>
+                        </VBox>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+
+                <!-- Requests Tab -->
+                <Tab fx:id="tabSolicitudes" text="Solicitudes">
+                  <content>
+                    <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="556.0" prefWidth="1000.0">
+                      <children>
+                        <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <padding>
+                            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                          </padding>
+                          <children>
+                            <HBox alignment="CENTER_LEFT" spacing="20.0">
+                              <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gestión de Solicitudes">
+                                  <font>
+                                    <Font name="System Bold" size="18.0" />
+                                  </font>
+                                </Text>
+                                <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                                  <children>
+                                    <TextField promptText="Buscar solicitud...">
+                                      <HBox.margin>
+                                        <Insets right="10.0" />
+                                      </HBox.margin>
+                                    </TextField>
+                                    <Button mnemonicParsing="false" onAction="#goToPeticiones" text="Gestionar Solicitudes" />
+                                  </children>
+                                </HBox>
+                              </children>
+                            </HBox>
+
+                            <TableView VBox.vgrow="ALWAYS">
+                              <columns>
+                                <TableColumn prefWidth="50.0" text="ID" />
+                                <TableColumn prefWidth="150.0" text="Cliente" />
+                                <TableColumn prefWidth="150.0" text="Jardín" />
+                                <TableColumn prefWidth="120.0" text="Fecha" />
+                                <TableColumn prefWidth="120.0" text="Estado" />
+                                <TableColumn prefWidth="120.0" text="Acciones" />
+                              </columns>
+                            </TableView>
+                          </children>
+                        </VBox>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+
+                <!-- Budgets Tab -->
+                <Tab fx:id="tabPresupuestos" text="Presupuestos">
+                  <content>
+                    <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="556.0" prefWidth="1000.0">
+                      <children>
+                        <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <padding>
+                            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                          </padding>
+                          <children>
+                            <HBox alignment="CENTER_LEFT" spacing="20.0">
+                              <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gestión de Presupuestos">
+                                  <font>
+                                    <Font name="System Bold" size="18.0" />
+                                  </font>
+                                </Text>
+                                <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                                  <children>
+                                    <TextField promptText="Buscar presupuesto...">
+                                      <HBox.margin>
+                                        <Insets right="10.0" />
+                                      </HBox.margin>
+                                    </TextField>
+                                    <Button mnemonicParsing="false" onAction="#goToPresupuestos" text="Gestionar Presupuestos" />
+                                  </children>
+                                </HBox>
+                              </children>
+                            </HBox>
+
+                            <TableView VBox.vgrow="ALWAYS">
+                              <columns>
+                                <TableColumn prefWidth="50.0" text="ID" />
+                                <TableColumn prefWidth="150.0" text="Cliente" />
+                                <TableColumn prefWidth="120.0" text="Fecha" />
+                                <TableColumn prefWidth="120.0" text="Importe" />
+                                <TableColumn prefWidth="120.0" text="Estado" />
+                                <TableColumn prefWidth="120.0" text="Acciones" />
+                              </columns>
+                            </TableView>
+                          </children>
+                        </VBox>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+
+                <!-- Assets Tab -->
+                <Tab fx:id="tabActivos" text="Activos">
+                  <content>
+                    <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="556.0" prefWidth="1000.0">
+                      <children>
+                        <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <padding>
+                            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                          </padding>
+                          <children>
+                            <HBox alignment="CENTER_LEFT" spacing="20.0">
+                              <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gestión de Activos">
+                                  <font>
+                                    <Font name="System Bold" size="18.0" />
+                                  </font>
+                                </Text>
+                                <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                                  <children>
+                                    <TextField promptText="Buscar activo...">
+                                      <HBox.margin>
+                                        <Insets right="10.0" />
+                                      </HBox.margin>
+                                    </TextField>
+                                    <Button mnemonicParsing="false" onAction="#goToActivos" text="Gestionar Activos" />
+                                  </children>
+                                </HBox>
+                              </children>
+                            </HBox>
+
+                            <TableView VBox.vgrow="ALWAYS">
+                              <columns>
+                                <TableColumn prefWidth="50.0" text="ID" />
+                                <TableColumn prefWidth="150.0" text="Nombre" />
+                                <TableColumn prefWidth="120.0" text="Tipo" />
+                                <TableColumn prefWidth="120.0" text="Estado" />
+                                <TableColumn prefWidth="120.0" text="Ubicación" />
+                                <TableColumn prefWidth="120.0" text="Acciones" />
+                              </columns>
+                            </TableView>
+                          </children>
+                        </VBox>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+
+                <!-- Documents Tab -->
+                <Tab fx:id="tabDocumentos" text="Documentos">
+                  <content>
+                    <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="556.0" prefWidth="1000.0">
+                      <children>
+                        <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <padding>
+                            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                          </padding>
+                          <children>
+                            <HBox alignment="CENTER_LEFT" spacing="20.0">
+                              <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gestión de Documentos">
+                                  <font>
+                                    <Font name="System Bold" size="18.0" />
+                                  </font>
+                                </Text>
+                                <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                                  <children>
+                                    <TextField promptText="Buscar documento...">
+                                      <HBox.margin>
+                                        <Insets right="10.0" />
+                                      </HBox.margin>
+                                    </TextField>
+                                    <Button mnemonicParsing="false" onAction="#goToDocumentos" text="Gestionar Documentos" />
+                                  </children>
+                                </HBox>
+                              </children>
+                            </HBox>
+
+                            <TableView VBox.vgrow="ALWAYS">
+                              <columns>
+                                <TableColumn prefWidth="200.0" text="Nombre" />
+                                <TableColumn prefWidth="120.0" text="Tipo" />
+                                <TableColumn prefWidth="150.0" text="Cliente" />
+                                <TableColumn prefWidth="120.0" text="Fecha" />
+                                <TableColumn prefWidth="120.0" text="Acciones" />
+                              </columns>
+                            </TableView>
+                          </children>
+                        </VBox>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+
+                <!-- Messaging Tab -->
+                <Tab fx:id="tabMensajeria" text="Mensajería">
+                  <content>
+                    <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="556.0" prefWidth="1000.0">
+                      <children>
+                        <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <padding>
+                            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                          </padding>
+                          <children>
+                            <HBox alignment="CENTER_LEFT" spacing="20.0">
+                              <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mensajería">
+                                  <font>
+                                    <Font name="System Bold" size="18.0" />
+                                  </font>
+                                </Text>
+                                <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                                  <children>
+                                    <Button mnemonicParsing="false" onAction="#goToMensajeria" text="Gestionar Mensajes" />
+                                  </children>
+                                </HBox>
+                              </children>
+                            </HBox>
+                          </children>
+                        </VBox>
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
+         </center>
+
+         <!-- Footer -->
+         <bottom>
+            <HBox alignment="CENTER" spacing="10.0" style="-fx-background-color: white; -fx-border-color: -fx-light-grey-color; -fx-border-width: 1 0 0 0;">
+               <padding>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+               </padding>
+               <children>
+                  <Label text="© 2023 Terranaturale - Sistema de Gestión para Jardinería" textFill="#666666" />
+               </children>
+            </HBox>
+         </bottom>
+      </BorderPane>
    </children>
 </AnchorPane>

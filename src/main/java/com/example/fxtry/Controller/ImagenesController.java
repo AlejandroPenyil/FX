@@ -16,9 +16,12 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.fxtry.Controller.AlertController.showAlert;
@@ -28,56 +31,145 @@ public class ImagenesController {
     ImplRetroFit implRetroFit;
 
     @FXML
-    private TableView<ImagenDTO> tvwClient;
+    private VBox imagenesContainer;
 
     @FXML
-    private TableColumn<ImagenDTO, String> tcFecha,tcUrl,tcCliente,tcJardin,tcComentario;
+    private TextField searchField;
+
+    // Track the currently selected imagen
+    private ImagenDTO selectedImagen = null;
+
+    // Track all imagen cards for selection management
+    private List<Parent> imagenCards = new ArrayList<>();
 
     @FXML
-    private void initialize() throws IOException {
+    private void initialize() {
         implRetroFit = new ImplRetroFit();
-        tcUrl.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUbicacion()));
-        tcFecha.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFecha()));
-        tcComentario.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getComentario()));
 
-        tcCliente.setCellValueFactory(cellData -> {
-            String clienteId = String.valueOf(cellData.getValue().getIdUsuario());
-            UsuarioDTO usuarioDTO = null;
-            try {
-                usuarioDTO = implRetroFit.getUsuario(Integer.parseInt(clienteId));
-            } catch (IOException e) {
-                e.printStackTrace();
-                showAlert("Error", "No se pudo obtener el usuario con ID: " + clienteId);
-            }
-            if (usuarioDTO != null) {
-                return new SimpleStringProperty(usuarioDTO.getNombre() + " " + usuarioDTO.getApellidos());
-            } else {
-                return new SimpleStringProperty("Desconocido");
-            }
-        });
-
-        tcJardin.setCellValueFactory(cellData -> {
-            String clienteId = String.valueOf(cellData.getValue().getIdJardin());
-            JardinesDTO usuarioDTO = null;
-            try {
-                usuarioDTO = implRetroFit.getJardine(Integer.parseInt(clienteId));
-            } catch (IOException e) {
-                e.printStackTrace();
-                showAlert("Error", "No se pudo obtener el usuario con ID: " + clienteId);
-            }
-            if (usuarioDTO != null) {
-                return new SimpleStringProperty(usuarioDTO.getLocalizacion());
-            } else {
-                return new SimpleStringProperty("Desconocido");
-            }
-        });
-
-        List<ImagenDTO> imagenDTOList =  implRetroFit.getImagenes();
-        for(ImagenDTO imagenDTO : imagenDTOList){
-            tvwClient.getItems().add(imagenDTO);
+        // Add search functionality if searchField exists
+        if (searchField != null) {
+            searchField.textProperty().addListener((obs, oldVal, newVal) -> {
+                try {
+                    applyFilter(newVal);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
         }
 
-        tvwClient.refresh();
+        // Load and display imagenes
+        try {
+            List<ImagenDTO> imagenesList = implRetroFit.getImagenes();
+            displayImagenes(imagenesList);
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Error", "No se pudo obtener la lista de imágenes");
+        }
+    }
+
+    // Method to display imagenes in the card view
+    private void displayImagenes(List<ImagenDTO> imagenes) {
+        // Clear existing imagenes
+        imagenesContainer.getChildren().clear();
+
+        // Clear tracking list
+        imagenCards.clear();
+
+        // Reset selected imagen
+        selectedImagen = null;
+
+        // Add imagen cards
+        for (ImagenDTO imagen : imagenes) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fxtry/Imagenes/imagen-card.fxml"));
+                Parent imagenCard = loader.load();
+
+                // Get controller and set imagen data
+                ImagenCardController cardController = loader.getController();
+                cardController.setParentController(this);
+                cardController.setImagen(imagen);
+
+                // Add card to container
+                imagenesContainer.getChildren().add(imagenCard);
+
+                // Add to tracking list for selection management
+                imagenCards.add(imagenCard);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // Method to filter imagenes based on search text
+    private void applyFilter(String searchText) throws IOException {
+        if (searchText == null || searchText.isEmpty()) {
+            // If search is empty, show all imagenes
+            List<ImagenDTO> imagenesList = implRetroFit.getImagenes();
+            displayImagenes(imagenesList);
+            return;
+        }
+
+        // Convert search text to lowercase for case-insensitive search
+        searchText = searchText.toLowerCase();
+
+        // Get all imagenes
+        List<ImagenDTO> allImagenes = implRetroFit.getImagenes();
+        List<ImagenDTO> filteredImagenes = new ArrayList<>();
+
+        // Filter imagenes based on search text
+        for (ImagenDTO imagen : allImagenes) {
+            // Get client name for this imagen
+            UsuarioDTO cliente = null;
+            try {
+                cliente = implRetroFit.getUsuario(imagen.getIdUsuario());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            String clienteName = "Desconocido";
+            if (cliente != null) {
+                clienteName = cliente.getNombre() + " " + cliente.getApellidos();
+            }
+
+            // Get jardin name for this imagen
+            JardinesDTO jardin = null;
+            try {
+                jardin = implRetroFit.getJardine(imagen.getIdJardin());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            String jardinName = "Desconocido";
+            if (jardin != null) {
+                jardinName = jardin.getLocalizacion();
+            }
+
+            if (clienteName.toLowerCase().contains(searchText) ||
+                jardinName.toLowerCase().contains(searchText) ||
+                imagen.getFecha().toLowerCase().contains(searchText) ||
+                imagen.getUbicacion().toLowerCase().contains(searchText) ||
+                imagen.getComentario().toLowerCase().contains(searchText)) {
+                filteredImagenes.add(imagen);
+            }
+        }
+
+        // Display filtered imagenes
+        displayImagenes(filteredImagenes);
+    }
+
+    // Method to set the selected imagen (will be called from ImagenCardController)
+    public void setSelectedImagen(ImagenDTO imagen, Parent card) {
+        this.selectedImagen = imagen;
+
+        // Clear selection from all cards
+        for (Parent imagenCard : imagenCards) {
+            imagenCard.getStyleClass().remove("document-card-selected");
+        }
+
+        // Add selection to the clicked card
+        if (card != null) {
+            card.getStyleClass().add("document-card-selected");
+        }
     }
 
     @FXML
@@ -127,9 +219,12 @@ public class ImagenesController {
 
     public void goToUpdate(ActionEvent event) {
         try {
-            ImagenDTO selectedUsuarioDTO = tvwClient.getSelectionModel().getSelectedItem();
+            if (selectedImagen == null) {
+                showAlert("Advertencia", "Por favor, seleccione una imagen primero");
+                return;
+            }
 
-            updatable= selectedUsuarioDTO;
+            updatable = selectedImagen;
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fxtry/Client/client-update-view.fxml"));
             Parent secondSceneParent = loader.load();
@@ -154,7 +249,10 @@ public class ImagenesController {
     }
 
     public void delete(ActionEvent event){
-        ImagenDTO selectedUsuarioDTO = tvwClient.getSelectionModel().getSelectedItem();
+        if (selectedImagen == null) {
+            showAlert("Advertencia", "Por favor, seleccione una imagen primero");
+            return;
+        }
 
         //TODO metodo para softdelete, no va haber hard delete
     }

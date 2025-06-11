@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxtry.Controller.ActivosController">
+   <children>
+      <BorderPane layoutX="152.0" layoutY="67.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <MenuBar cache="true" useSystemMenuBar="true" BorderPane.alignment="CENTER">
+              <menus>
+                <Menu mnemonicParsing="false" text="Opciones">
+                  <items>
+                        <MenuItem mnemonicParsing="false" onAction="#goToCreate" text="Crear" />
+                        <MenuItem mnemonicParsing="false" onAction="#goToUpdate" text="Modificar" />
+                        <MenuItem mnemonicParsing="false" onAction="#delete" text="Eliminar" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Ayuda">
+                  <items>
+                    <MenuItem mnemonicParsing="false" onAction="#goToHelp" text="Abrir ayuda" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </top>
+         <center>
+            <TableView fx:id="tvwActivos" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <columns>
+                  <TableColumn fx:id="tcId" prefWidth="70.0" text="ID" />
+                <TableColumn fx:id="tcNombre" prefWidth="160.0" text="Nombre" />
+                <TableColumn fx:id="tcDescripcion" prefWidth="220.0" text="Descripción" />
+                  <TableColumn fx:id="tcFechaAdquisicion" prefWidth="170.0" text="Fecha Adquisición" />
+                  <TableColumn fx:id="tcValor" prefWidth="110.0" text="Valor" />
+                  <TableColumn fx:id="tcEstado" prefWidth="130.0" text="Estado" />
+                  <TableColumn fx:id="tcUbicacion" prefWidth="160.0" text="Ubicación" />
+              </columns>
+              <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+              </columnResizePolicy>
+            </TableView>
+         </center>
+         <bottom>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="400.0" spacing="15.0">
+                     <children>
+                        <Button fx:id="btnDocumento" mnemonicParsing="false" onAction="#subirDocumento" text="Añadir Documento" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToMain" text="Volver" textAlignment="CENTER" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </bottom>
+      </BorderPane>
+   </children>
+</AnchorPane>

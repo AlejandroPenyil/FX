@@ -1,6 +1,7 @@
 package com.example.fxtry.iService;
 
 import com.example.fxtry.Model.LogginRequest;
+import com.example.fxtry.Model.PasswordResetRequest;
 import com.example.fxtry.Model.UsuarioDTO;
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -25,4 +26,7 @@ public interface iUsuarioService {
 
     @DELETE("/usuarios/{id}")
     Call<Void> usuarioDelete(@Path("id") Integer id);
+
+    @POST("/usuarios/reset-password")
+    Call<Void> resetPassword(@Body PasswordResetRequest resetRequest);
 }

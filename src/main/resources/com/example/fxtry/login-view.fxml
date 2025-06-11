@@ -1,19 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxtry.Controller.LoginController">
    <children>
-      <VBox alignment="CENTER" layoutY="-34.0" maxWidth="-Infinity" prefWidth="300.0" spacing="30.0" AnchorPane.bottomAnchor="34.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-34.0">
-         <children>
-            <ImageView fx:id="imgPortrait" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <TextField fx:id="lblName" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="300.0" promptText="Correo" />
-            <PasswordField fx:id="lblPasword" maxWidth="300.0" promptText="Contraseña" />
-            <Button maxHeight="1.7976931348623157E308" maxWidth="300.0" mnemonicParsing="false" onAction="#goToMain" text="Iniciar sesión" />
-            <Label fx:id="lblError" textAlignment="CENTER" />
-         </children>
-      </VBox>
+      <HBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <!-- Left side - Image -->
+         <StackPane styleClass="login-background" HBox.hgrow="ALWAYS">
+            <children>
+               <VBox alignment="CENTER" spacing="20.0">
+                  <children>
+                     <ImageView fx:id="imgPortrait" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@../../../images/logo.png" />
+                        </image>
+                     </ImageView>
+                     <Text fill="#3ab336" strokeType="OUTSIDE" strokeWidth="0.0" text="Terranaturale">
+                        <font>
+                           <Font name="System Bold" size="36.0" />
+                        </font>
+                     </Text>
+                     <Text fill="#333333" strokeType="OUTSIDE" strokeWidth="0.0" text="Sistema de gestión para empresas de jardinería y paisajismo" textAlignment="CENTER" wrappingWidth="400.0">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </Text>
+                  </children>
+               </VBox>
+            </children>
+         </StackPane>
+
+         <!-- Right side - Login form -->
+         <VBox alignment="CENTER" maxWidth="450.0" prefWidth="450.0" styleClass="login-form">
+            <padding>
+               <Insets bottom="30.0" left="50.0" right="50.0" top="30.0" />
+            </padding>
+            <children>
+               <Text fill="#333333" strokeType="OUTSIDE" strokeWidth="0.0" text="Iniciar Sesión">
+                  <font>
+                     <Font name="System Bold" size="24.0" />
+                  </font>
+                  <VBox.margin>
+                     <Insets bottom="30.0" />
+                  </VBox.margin>
+               </Text>
+
+               <Label text="Correo electrónico" />
+               <TextField fx:id="lblName" promptText="Ingrese su correo electrónico">
+                  <VBox.margin>
+                     <Insets bottom="20.0" />
+                  </VBox.margin>
+               </TextField>
+
+               <Label text="Contraseña" />
+               <PasswordField fx:id="lblPasword" promptText="Ingrese su contraseña">
+                  <VBox.margin>
+                     <Insets bottom="30.0" />
+                  </VBox.margin>
+               </PasswordField>
+
+               <Button defaultButton="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#goToMain" text="Iniciar sesión">
+                  <VBox.margin>
+                     <Insets bottom="20.0" />
+                  </VBox.margin>
+               </Button>
+
+               <ProgressIndicator fx:id="loginProgress" visible="false">
+                  <VBox.margin>
+                     <Insets bottom="10.0" />
+                  </VBox.margin>
+               </ProgressIndicator>
+
+               <Label fx:id="lblError" textAlignment="CENTER" />
+
+               <HBox alignment="CENTER">
+                  <children>
+                     <Hyperlink fx:id="forgotPasswordLink" onAction="#goToResetPassword" text="¿Olvidó su contraseña?" />
+                  </children>
+                  <VBox.margin>
+                     <Insets top="10.0" />
+                  </VBox.margin>
+               </HBox>
+
+               <HBox alignment="CENTER">
+                  <children>
+                     <Hyperlink fx:id="serverConfigLink" onAction="#showServerConfig" text="Configurar servidor" />
+                  </children>
+                  <VBox.margin>
+                     <Insets top="5.0" />
+                  </VBox.margin>
+               </HBox>
+            </children>
+         </VBox>
+      </HBox>
    </children>
 </AnchorPane>

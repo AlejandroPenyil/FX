@@ -12,4 +12,5 @@ public class ImagenDTO {
     private Integer idJardin;
     private Integer idUsuario;
     private String comentario;
+    private String imageDataBase64;
 }

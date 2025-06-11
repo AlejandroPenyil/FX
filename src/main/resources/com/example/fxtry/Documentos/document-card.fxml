@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox fx:id="documentCard" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="80.0" spacing="15.0" styleClass="document-card" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="docIcon" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
+      <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+         <children>
+            <Label fx:id="docName" styleClass="document-title" text="Document Name">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
+               <children>
+                  <Label fx:id="docType" styleClass="document-info" text="Type" />
+                  <Label fx:id="docSize" styleClass="document-info" text="Size" />
+                  <Label fx:id="docDate" styleClass="document-info" text="Date" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Label fx:id="docCategory" styleClass="document-category" text="Category" />
+      <Label fx:id="docUser" styleClass="document-user" text="User" />
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+   </padding>
+</HBox>

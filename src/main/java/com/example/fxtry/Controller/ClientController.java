@@ -13,8 +13,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -24,6 +25,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -33,10 +35,16 @@ public class ClientController extends Application {
     ImplRetroFit implRetroFit;
 
     @FXML
-    private TableView<UsuarioDTO> tvwClient;
+    private VBox clientsContainer;
 
     @FXML
-    private TableColumn<UsuarioDTO, String> tcName, tcPassword, tcUsuario, tcId, tcCorreo, tcApellido, tcDni, tcTelefono, tcDireccion, tcRol;
+    private TextField searchField;
+
+    // Track the currently selected user
+    private UsuarioDTO selectedUsuario = null;
+
+    // Track all client cards for selection management
+    private List<Parent> clientCards = new ArrayList<>();
 
     @Override
     public void start(Stage primaryStage) {
@@ -54,41 +62,91 @@ public class ClientController extends Application {
     @FXML
     private void initialize() throws IOException {
         implRetroFit = new ImplRetroFit();
-        tcName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
-        tcPassword.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContraseña()));
-        tcUsuario.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getUserName()));
-        tcApellido.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getApellidos()));
-        tcCorreo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCorreo()));
-        tcDireccion.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDireccion()));
-        tcRol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRol()));
-        tcDni.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDni()));
-        tcId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId().toString()));
-        tcTelefono.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTelefono()));
-//        tvwClient.getItems().add(admin);
+
+        // Add search functionality
+        searchField.textProperty().addListener((obs, oldVal, newVal) -> {
+            try {
+                applyFilter(newVal);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        // Load and display clients
         List<UsuarioDTO> usuarioDTOList = implRetroFit.getUsuarios();
-
-        for (UsuarioDTO usuarioDTO : usuarioDTOList){
-            tvwClient.getItems().add(usuarioDTO);
-        }
-
-        tvwClient.refresh();
+        displayClients(usuarioDTOList);
     }
 
     @FXML
     private void goToMain(ActionEvent event) {
         try {
+            // Get the current stage
+            Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+            // Store current window dimensions and state
+            double width = currentStage.getWidth();
+            double height = currentStage.getHeight();
+            boolean maximized = currentStage.isMaximized();
+
+            // Calculate the aspect ratio
+            double aspectRatio = width / height;
+
+            // If maximized, temporarily set to non-maximized to capture actual size
+            if (maximized) {
+                currentStage.setMaximized(false);
+                // Get the actual window size before maximizing
+                width = currentStage.getWidth();
+                height = currentStage.getHeight();
+                // Recalculate aspect ratio with actual size
+                aspectRatio = width / height;
+                // Restore maximized state
+                currentStage.setMaximized(true);
+            }
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fxtry/main-view.fxml"));
             Parent secondSceneParent = loader.load();
-            Scene secondScene = new Scene(secondSceneParent);
+
+            // Set the preferred size on the root to maintain aspect ratio if it's a Region
+            if (secondSceneParent instanceof Region) {
+                Region rootRegion = (Region) secondSceneParent;
+                rootRegion.setPrefWidth(width);
+                rootRegion.setPrefHeight(height);
+            }
+
+            Scene secondScene = new Scene(secondSceneParent, width, height);
+
             // Acceso al controlador de la segunda escena, si es necesario
             MainController secondController = loader.getController();
 
-            // Acceso al stage actual
-            Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-
             secondScene.getStylesheets().add(getClass().getResource("/com/example/fxtry/style.css").toExternalForm());
-            // Mostrar la segunda escena en el stage actual
+
+            // First set the scene with the correct dimensions
             currentStage.setScene(secondScene);
+
+            // Then restore maximized state if needed
+            if (maximized) {
+                currentStage.setMaximized(true);
+            } else {
+                // Ensure correct dimensions for non-maximized state
+                currentStage.setWidth(width);
+                currentStage.setHeight(height);
+            }
+
+            // Create a final copy of the aspect ratio for use in lambda expressions
+            final double finalAspectRatio = aspectRatio;
+
+            // Add a listener to maintain aspect ratio when the window is resized
+            currentStage.widthProperty().addListener((obs, oldVal, newVal) -> {
+                if (!currentStage.isMaximized()) {
+                    currentStage.setHeight(newVal.doubleValue() / finalAspectRatio);
+                }
+            });
+
+            currentStage.heightProperty().addListener((obs, oldVal, newVal) -> {
+                if (!currentStage.isMaximized()) {
+                    currentStage.setWidth(newVal.doubleValue() * finalAspectRatio);
+                }
+            });
 
             currentStage.show();
         } catch (IOException e) {
@@ -98,20 +156,76 @@ public class ClientController extends Application {
 
     public void goToCreate(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fxtry/Client/client-create-view.fxml"));
-            Parent secondSceneParent = loader.load();
-            Scene secondScene = new Scene(secondSceneParent);
-            // Acceso al controlador de la segunda escena, si es necesario
-            ClientCreateController secondController = loader.getController();
-
             // Acceso al stage actual
             MenuItem menuItem = (MenuItem) event.getSource();
             ContextMenu contextMenu = menuItem.getParentPopup();
             Scene scene = contextMenu.getOwnerNode().getScene();
             Stage currentStage = (Stage) scene.getWindow();
+
+            // Store current window dimensions and state
+            double width = currentStage.getWidth();
+            double height = currentStage.getHeight();
+            boolean maximized = currentStage.isMaximized();
+
+            // Calculate the aspect ratio
+            double aspectRatio = width / height;
+
+            // If maximized, temporarily set to non-maximized to capture actual size
+            if (maximized) {
+                currentStage.setMaximized(false);
+                // Get the actual window size before maximizing
+                width = currentStage.getWidth();
+                height = currentStage.getHeight();
+                // Recalculate aspect ratio with actual size
+                aspectRatio = width / height;
+                // Restore maximized state
+                currentStage.setMaximized(true);
+            }
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fxtry/Client/client-create-view.fxml"));
+            Parent secondSceneParent = loader.load();
+
+            // Set the preferred size on the root to maintain aspect ratio if it's a Region
+            if (secondSceneParent instanceof Region) {
+                Region rootRegion = (Region) secondSceneParent;
+                rootRegion.setPrefWidth(width);
+                rootRegion.setPrefHeight(height);
+            }
+
+            Scene secondScene = new Scene(secondSceneParent, width, height);
+
+            // Acceso al controlador de la segunda escena, si es necesario
+            ClientCreateController secondController = loader.getController();
+
             secondScene.getStylesheets().add(getClass().getResource("/com/example/fxtry/style.css").toExternalForm());
-            // Mostrar la segunda escena en el stage actual
+
+            // First set the scene with the correct dimensions
             currentStage.setScene(secondScene);
+
+            // Then restore maximized state if needed
+            if (maximized) {
+                currentStage.setMaximized(true);
+            } else {
+                // Ensure correct dimensions for non-maximized state
+                currentStage.setWidth(width);
+                currentStage.setHeight(height);
+            }
+
+            // Create a final copy of the aspect ratio for use in lambda expressions
+            final double finalAspectRatio = aspectRatio;
+
+            // Add a listener to maintain aspect ratio when the window is resized
+            currentStage.widthProperty().addListener((obs, oldVal, newVal) -> {
+                if (!currentStage.isMaximized()) {
+                    currentStage.setHeight(newVal.doubleValue() / finalAspectRatio);
+                }
+            });
+
+            currentStage.heightProperty().addListener((obs, oldVal, newVal) -> {
+                if (!currentStage.isMaximized()) {
+                    currentStage.setWidth(newVal.doubleValue() * finalAspectRatio);
+                }
+            });
 
             currentStage.show();
         } catch (IOException e) {
@@ -119,17 +233,93 @@ public class ClientController extends Application {
         }
     }
 
+    // Method to display clients in the card view
+    private void displayClients(List<UsuarioDTO> clients) {
+        // Clear existing clients
+        clientsContainer.getChildren().clear();
+
+        // Clear tracking list
+        clientCards.clear();
+
+        // Reset selected client
+        selectedUsuario = null;
+
+        // Add client cards
+        for (UsuarioDTO usuario : clients) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fxtry/Client/client-card.fxml"));
+                Parent clientCard = loader.load();
+
+                // Get controller and set client data
+                ClientCardController cardController = loader.getController();
+                cardController.setParentController(this);
+                cardController.setUsuario(usuario);
+
+                // Add card to container
+                clientsContainer.getChildren().add(clientCard);
+
+                // Add to tracking list for selection management
+                clientCards.add(clientCard);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // Method to filter clients based on search text
+    private void applyFilter(String searchText) throws IOException {
+        if (searchText == null || searchText.isEmpty()) {
+            // If search is empty, show all clients
+            List<UsuarioDTO> usuarioDTOList = implRetroFit.getUsuarios();
+            displayClients(usuarioDTOList);
+            return;
+        }
+
+        // Convert search text to lowercase for case-insensitive search
+        searchText = searchText.toLowerCase();
+
+        // Get all clients
+        List<UsuarioDTO> allClients = implRetroFit.getUsuarios();
+        List<UsuarioDTO> filteredClients = new ArrayList<>();
+
+        // Filter clients based on search text
+        for (UsuarioDTO usuario : allClients) {
+            if (usuario.getNombre().toLowerCase().contains(searchText) ||
+                usuario.getApellidos().toLowerCase().contains(searchText) ||
+                usuario.getCorreo().toLowerCase().contains(searchText) ||
+                usuario.getDni().toLowerCase().contains(searchText) ||
+                usuario.getUserName().toLowerCase().contains(searchText)) {
+                filteredClients.add(usuario);
+            }
+        }
+
+        // Display filtered clients
+        displayClients(filteredClients);
+    }
+
+    // Method to set the selected client (will be called from ClientCardController)
+    public void setSelectedUsuario(UsuarioDTO usuario, Parent card) {
+        this.selectedUsuario = usuario;
+
+        // Clear selection from all cards
+        for (Parent clientCard : clientCards) {
+            clientCard.getStyleClass().remove("document-card-selected");
+        }
+
+        // Add selection to the clicked card
+        if (card != null) {
+            card.getStyleClass().add("document-card-selected");
+        }
+    }
+
     public void goToUpdate(ActionEvent event) {
         try {
-            UsuarioDTO selectedUsuarioDTO = tvwClient.getSelectionModel().getSelectedItem();
+            if (selectedUsuario == null) {
+                AlertController.showAlert("Advertencia", "Por favor, seleccione un cliente primero");
+                return;
+            }
 
-            updatable= selectedUsuarioDTO;
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fxtry/Client/client-update-view.fxml"));
-            Parent secondSceneParent = loader.load();
-            Scene secondScene = new Scene(secondSceneParent);
-            // Acceso al controlador de la segunda escena, si es necesario
-            ClientUpdateController secondController = loader.getController();
+            updatable = selectedUsuario;
 
             // Acceso al stage actual
             MenuItem menuItem = (MenuItem) event.getSource();
@@ -137,9 +327,70 @@ public class ClientController extends Application {
             Scene scene = contextMenu.getOwnerNode().getScene();
             Stage currentStage = (Stage) scene.getWindow();
 
+            // Store current window dimensions and state
+            double width = currentStage.getWidth();
+            double height = currentStage.getHeight();
+            boolean maximized = currentStage.isMaximized();
+
+            // Calculate the aspect ratio
+            double aspectRatio = width / height;
+
+            // If maximized, temporarily set to non-maximized to capture actual size
+            if (maximized) {
+                currentStage.setMaximized(false);
+                // Get the actual window size before maximizing
+                width = currentStage.getWidth();
+                height = currentStage.getHeight();
+                // Recalculate aspect ratio with actual size
+                aspectRatio = width / height;
+                // Restore maximized state
+                currentStage.setMaximized(true);
+            }
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/fxtry/Client/client-update-view.fxml"));
+            Parent secondSceneParent = loader.load();
+
+            // Set the preferred size on the root to maintain aspect ratio if it's a Region
+            if (secondSceneParent instanceof Region) {
+                Region rootRegion = (Region) secondSceneParent;
+                rootRegion.setPrefWidth(width);
+                rootRegion.setPrefHeight(height);
+            }
+
+            Scene secondScene = new Scene(secondSceneParent, width, height);
+
+            // Acceso al controlador de la segunda escena, si es necesario
+            ClientUpdateController secondController = loader.getController();
+
             secondScene.getStylesheets().add(getClass().getResource("/com/example/fxtry/style.css").toExternalForm());
-            // Mostrar la segunda escena en el stage actual
+
+            // First set the scene with the correct dimensions
             currentStage.setScene(secondScene);
+
+            // Then restore maximized state if needed
+            if (maximized) {
+                currentStage.setMaximized(true);
+            } else {
+                // Ensure correct dimensions for non-maximized state
+                currentStage.setWidth(width);
+                currentStage.setHeight(height);
+            }
+
+            // Create a final copy of the aspect ratio for use in lambda expressions
+            final double finalAspectRatio = aspectRatio;
+
+            // Add a listener to maintain aspect ratio when the window is resized
+            currentStage.widthProperty().addListener((obs, oldVal, newVal) -> {
+                if (!currentStage.isMaximized()) {
+                    currentStage.setHeight(newVal.doubleValue() / finalAspectRatio);
+                }
+            });
+
+            currentStage.heightProperty().addListener((obs, oldVal, newVal) -> {
+                if (!currentStage.isMaximized()) {
+                    currentStage.setWidth(newVal.doubleValue() * finalAspectRatio);
+                }
+            });
 
             currentStage.show();
         } catch (IOException e) {
@@ -148,14 +399,16 @@ public class ClientController extends Application {
     }
 
     public void delete(ActionEvent event) throws IOException {
-        UsuarioDTO selectedUsuarioDTO = tvwClient.getSelectionModel().getSelectedItem();
+        if (selectedUsuario == null) {
+            AlertController.showAlert("Advertencia", "Por favor, seleccione un cliente primero");
+            return;
+        }
 
-        implRetroFit.deleteUsuario(selectedUsuarioDTO);
+        implRetroFit.deleteUsuario(selectedUsuario);
 
-        tvwClient.getItems().remove(selectedUsuarioDTO);
-
-        // Actualiza la tabla para reflejar los cambios
-        tvwClient.refresh();
+        // Reload and display clients
+        List<UsuarioDTO> usuarioDTOList = implRetroFit.getUsuarios();
+        displayClients(usuarioDTOList);
     }
 
     public void goToHep(ActionEvent event) {
@@ -169,6 +422,11 @@ public class ClientController extends Application {
     }
 
     public void subir(ActionEvent event) {
+        if (selectedUsuario == null) {
+            AlertController.showAlert("Advertencia", "Por favor, seleccione un cliente primero");
+            return;
+        }
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Busca la imagen");
 
@@ -181,7 +439,7 @@ public class ClientController extends Application {
         Stage currentStage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
         ImagenDTO imagenDTO = new ImagenDTO();
-        UsuarioDTO selectedJardin = tvwClient.getSelectionModel().getSelectedItem();
+        UsuarioDTO selectedJardin = selectedUsuario;
 
         if (selectedJardin != null) {
             // Mostrar el FileChooser y capturar el archivo seleccionado
@@ -213,4 +471,3 @@ public class ClientController extends Application {
         }
     }
 }
-

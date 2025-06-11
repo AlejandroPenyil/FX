@@ -1,48 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxtry.Controller.Update.ClientUpdateController">
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxtry.Controller.Update.PresupuestosUpdateController">
     <children>
         <BorderPane layoutX="200.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <top>
+                <Label text="Actualizar Presupuesto" BorderPane.alignment="CENTER">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                    <BorderPane.margin>
+                        <Insets bottom="20.0" top="20.0" />
+                    </BorderPane.margin>
+                </Label>
+            </top>
             <center>
                 <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="30.0" BorderPane.alignment="CENTER">
                     <children>
                         <VBox alignment="CENTER" prefHeight="200.0" spacing="30.0">
                             <children>
-                                <TextField fx:id="txtName" promptText="Nombre" />
-                                <TextField promptText="Apellidos" />
-                            </children>
-                        </VBox>
-                        <VBox alignment="CENTER" prefHeight="200.0" spacing="30.0">
-                            <children>
-                                <TextField promptText="Correo" />
-                                <TextField fx:id="txtPassword" promptText="Contraseña" />
+                                <ComboBox fx:id="cmbJardin" prefWidth="200.0" promptText="Seleccionar Jardín" />
+                                <ComboBox fx:id="cmbSolicitud" prefWidth="200.0" promptText="Seleccionar Solicitud" />
+                                <TextField fx:id="txtUbicacion" promptText="Ubicación" />
+                                <CheckBox fx:id="chkRechazado" mnemonicParsing="false" text="Rechazado" />
                             </children>
                         </VBox>
                     </children>
                 </HBox>
             </center>
             <bottom>
-                <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" BorderPane.alignment="CENTER">
+                <VBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Button mnemonicParsing="false" text="Crear">
-                            <HBox.margin>
-                                <Insets bottom="15.0" top="15.0" />
-                            </HBox.margin>
-                        </Button>
-                        <Button defaultButton="true" mnemonicParsing="false" onAction="#goToClient" text="Cancelar">
-                            <HBox.margin>
-                                <Insets bottom="15.0" right="15.0" top="15.0" />
-                            </HBox.margin>
-                        </Button>
+                        <Label fx:id="lblError" textFill="RED" />
+                        <HBox alignment="BOTTOM_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#update" text="Actualizar">
+                                    <HBox.margin>
+                                        <Insets bottom="15.0" top="15.0" />
+                                    </HBox.margin>
+                                </Button>
+                                <Button defaultButton="true" mnemonicParsing="false" onAction="#goToPresupuestos" text="Cancelar">
+                                    <HBox.margin>
+                                        <Insets bottom="15.0" right="15.0" top="15.0" />
+                                    </HBox.margin>
+                                </Button>
+                            </children>
+                        </HBox>
                     </children>
                     <BorderPane.margin>
                         <Insets />
                     </BorderPane.margin>
-                </HBox>
+                </VBox>
             </bottom>
         </BorderPane>
     </children>
