@@ -6,15 +6,22 @@ import com.example.fxtry.Model.UsuarioDTO;
 import com.example.fxtry.Retrofit.ImplRetroFit;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Base64;
 
 public class ImagenCardController {
 
     @FXML
     private HBox imagenCard;
+
+    @FXML
+    private ImageView imageView;
 
     @FXML
     private Label imagenId;
@@ -86,6 +93,21 @@ public class ImagenCardController {
         } catch (IOException e) {
             e.printStackTrace();
             imagenJardin.setText("Error al cargar jardín");
+        }
+
+        // Display the image from Base64 data
+        if (imagen.getImageDataBase64() != null && !imagen.getImageDataBase64().isEmpty()) {
+            try {
+                byte[] imageData = Base64.getDecoder().decode(imagen.getImageDataBase64());
+                Image image = new Image(new ByteArrayInputStream(imageData));
+                imageView.setImage(image);
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.err.println("Error loading image: " + e.getMessage());
+            }
+        } else {
+            // Set a placeholder or default image if no image data is available
+            imageView.setImage(null);
         }
 
         // Add click event handler to the card

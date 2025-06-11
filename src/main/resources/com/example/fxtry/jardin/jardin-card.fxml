@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="jardinCard" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="100.0" spacing="15.0" styleClass="document-card" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="jardinCard" alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefHeight="100.0" spacing="15.0" styleClass="document-card" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fxtry.Controller.JardinCardController">
    <children>
       <VBox alignment="CENTER_LEFT" spacing="5.0" HBox.hgrow="ALWAYS">
          <children>
